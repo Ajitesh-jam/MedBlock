@@ -179,6 +179,7 @@ function Doctor() {
         placeholder={`Search by ${searchBy}`}
         className="search-bar"
       />
+      
       <div className="search-filter">
         <label htmlFor="searchBy">Search by:</label>
         <select id="searchBy" value={searchBy} onChange={(e) => setSearchBy(e.target.value)}>
@@ -187,6 +188,7 @@ function Doctor() {
           <option value="email">Email</option>
         </select>
       </div>
+      Your Patients
 
       {/* Display search results */}
       <div className="search-results">
@@ -199,6 +201,7 @@ function Doctor() {
       </div>
 <div>
       {/* Render selected patient's details */}
+      
       {renderPatientDetails()}
 
       {/* Action buttons */}

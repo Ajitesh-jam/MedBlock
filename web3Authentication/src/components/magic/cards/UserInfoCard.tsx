@@ -181,18 +181,18 @@ const UserInfo = ({ token, setToken }: LoginProps) => {
     const { name, DOB, ImageUrl, contact, gender, adhar } = formData;
 
     try {
-      // const response = await axios.post("http://localhost:8000/createRecord", {
-      //   _publicAddress: publicAddress,
-      //   _name: name,
-      //   _DOB: DOB,
-      //   _url: ImageUrl,
-      //   _email: "not@gmail.com",
-      //   _control: "controlCode",
-      //   _gender: gender,
-      //   _aadhar: adhar,
-      //   _patientId: "patient123",
-      // });
-      // console.log("Create Record Response:", response.data);
+      const response = await axios.post("http://localhost:8000/createRecord", {
+        _publicAddress: publicAddress,
+        _name: name,
+        _DOB: DOB,
+        _url: ImageUrl,
+        _email: "not@gmail.com",
+        _control: "controlCode",
+        _gender: gender,
+        _aadhar: adhar,
+        _patientId: "patient123",
+      });
+      console.log("Create Record Response:", response.data);
 
       setFormData({ name: "", DOB: "", ImageUrl: "", publicAddress: "", contact: "", gender: "", adhar: "" });
       setSuccess(true); // Set success state to true on successful submission
