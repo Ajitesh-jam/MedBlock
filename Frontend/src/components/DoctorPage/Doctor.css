@@ -1,3 +1,15 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+
+.app-container {
+  position: relative;
+  text-align: center;
+  width: 100%;
+  color: white;
+}
+
 .video {
   position: fixed;
   top: 0;
@@ -8,18 +20,34 @@
   z-index: -1;
 }
 
+.welcome-2, .welcome-3 {
+  margin: 20px;
+}
+
+.pfp-container {
+  margin-top: 20px;
+}
+
+.pfp {
+  width: 150px;
+  height: auto;
+}
+
 .search-bar {
   margin: 20px auto;
+  position: flex;
   padding: 10px;
+  
   width: 60%; /* Adjusted for better centering */
   max-width: 600px; /* Optional: limits width on larger screens */
   border-radius: 5px;
   border: 1px solid #0202c9;
   background-color: #000065;
-  color: #fafafa;
+  color: #333;
   font-size: 16px;
-  
   transition: box-shadow 0.3s ease-in-out;
+
+  /* Centering within a container */
   display: block;
 }
 
@@ -27,19 +55,33 @@
   outline: none;
 }
 
-.search-results {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr); /* 5 items per row */
-  padding: 10px; /* Padding around the grid */
-  overflow-y: auto; /* Allow vertical scrolling */
-  gap: 20px; /* Space between items */
-  width: 100%; /* Full width */
-  max-height: 80vh; /* Limit height for scrolling */
-  margin: 20px auto; /* Center the grid */
+.search-bar:hover {
+  box-shadow: 0 0 10px rgba(123, 104, 238, 0.7),
+              0 0 20px rgba(75, 0, 130, 0.5),
+              0 0 30px rgba(123, 104, 238, 0.3);
 }
 
+
+/* Container for the grid */
+.search-results {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  padding: 10px; /* 3 items per row */
+  
+  position: flex;
+  top: 30%;
+  
+  gap: 20px; /* Space between items */
+  width: 100%; /* Full width */
+  margin: 20px auto;
+}
+
+
+/* Styling for each result item */
 .search-results-item {
   background-color: rgba(0, 0, 0, 0.7);
+  position: center;
+  
   padding: 20px;
   border-radius: 10px;
   color: #fff;
@@ -47,6 +89,7 @@
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
+/* Hover effect for each result item */
 .search-results-item:hover {
   transform: scale(1.05); /* Slightly enlarges the item */
   box-shadow: 0 0 10px rgba(123, 104, 238, 0.7),
@@ -54,9 +97,311 @@
               0 0 30px rgba(123, 104, 238, 0.3); /* Adds a glow */
 }
 
+
+
+
+
 .result-image {
   width: 100px;
   height: 100px;
   border-radius: 50%;
   margin-bottom: 10px;
 }
+
+.patient-details {
+  margin: 20px auto;
+  background-color: rgba(0, 0, 0, 0.7);
+  padding: 20px;
+  border-radius: 10px;
+  color: #fff;
+  text-align: left;
+  width: 80%;
+}
+
+.patient-image {
+  width: 150px;
+  height: auto;
+  margin-bottom: 10px;
+}
+
+.medical-records {
+  margin-top: 20px;
+}
+
+.medical-records p {
+  font-size: 16px;
+  margin: 5px 0;
+}
+
+.btn {
+  margin-top: 20px;
+  position: absolute;
+  left: 50%;
+  align-items: center;
+  background-color: #4CAF50;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+  background-color: #45a049;
+}
+
+
+
+
+.video {
+  display: flex;
+  
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+}
+
+.app-container {
+  width: 100%;
+  color: rgb(255, 255, 255);
+  display: 'flex';
+  padding: 20;
+  gap: '40px';
+  justify-content: 'center';
+  align-items: 'center';
+  height: '80vh';
+  background-color: '#4B0082';/* Purplish blue background */
+  color: 'white';
+}
+
+.welcome {
+  width: max-content;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 20px;
+  font-family: "Montserrat", sans-serif;
+  position: absolute;
+  top: 10%;
+  left: 10%;
+  font-family: 'Raleway', sans-serif;
+  font-weight: 1700; /* Bold weight */
+  font-size: 56px;  /* Suitable size for app name */
+  letter-spacing: 1.5px; /* Adjust letter spacing */
+  color: #9deeab; /* Example color */
+}
+
+.welcome-2 {
+  width: max-content;
+  font-family: "Poppins", sans-serif;
+  padding: 20px;
+  position: absolute;
+  top: 40%;
+  
+  transition-duration: 1s;
+  left: 10%;
+}
+
+.welcome-2:hover {
+  transition: 1s;
+  font-display: bold;
+  box-sizing: content-box;
+  box-shadow: 0px 3px 0px rgba(255, 255, 255, 0.4);
+  width: fit-content;
+  cursor: pointer;
+  color: antiquewhite;
+}
+
+.welcome-3 {
+  
+  width: max-content;
+  font-family: "Montserrat", sans-serif;
+  padding: 20px;
+  position: absolute;
+  top: 60%;
+  
+  transition-duration: 1s;
+  left: 10%;
+}
+.app-navbar {
+  overflow: visible;
+  position: fixed;
+  width: 100%;
+  background-color: rgba(13, 0, 70, 1);
+  padding-right: 30px;
+  margin-bottom: 20px;
+  z-index: 5;
+}
+
+.app-navbar a {
+  color: white;
+  float: right;
+  padding: 16px 20px;
+  text-decoration: none;
+  text-align: center;
+  font-size: 18px;
+  font-family: monospace;
+}
+
+
+.app-navbar a:hover {
+  background-color: rgba(2, 0, 14, 0.852);
+  color: rgb(255, 255, 255);
+  font-weight: bolder;
+  box-shadow: 0px 3px 0px rgba(255, 255, 255, 0.4);
+  cursor: pointer;
+}
+
+.pfp {
+    width: 300px;
+    position: absolute;
+    top: 12%;
+    left: 10%;
+    padding: 10px;
+    box-sizing: border-box;
+    border-radius: 50%;
+    overflow: hidden;
+    transform: translatey(0px);
+    animation: float 6s ease-in-out infinite;
+    
+}
+
+.experience {
+  padding: 10px;
+  background: linear-gradient(109.6deg, rgb(9, 9, 121) 11.2%, rgb(144, 6, 161) 53.7%, rgb(0, 212, 255) 100.2%);
+  background-size: 600% 100%;
+  animation: gradient 8s linear infinite;
+  animation-direction: alternate;
+  width: 100%;
+}
+
+.astro-4 {
+  width: 160px;
+  position: absolute;
+  right: 20%;
+  padding: 5px;
+  overflow: hidden;
+  margin: 5px;
+  transform: translatey(0px);
+  animation: float 10s ease-in-out infinite;
+}
+
+.sphere {
+  width: 160px;
+  position: absolute;
+  left: 5%;
+  padding: 5px;
+  overflow: hidden;
+  margin: 5px;
+  transform: translatey(0px);
+  animation: float 7s ease-in-out infinite;
+}
+
+
+.section-heading {
+  text-shadow: 0px 0px 10px rgba(255, 255, 255, 0.4);
+  font-size: 3rem;
+  margin-bottom: 20px;
+  font-family: monospace;
+  color: white;
+  
+  transition-duration: 1s;
+}
+
+.section-heading:hover {
+  transition: 1s;
+  font-size: 3.2rem;
+  font-display: bold;
+  box-shadow: 0px 5px 0px rgba(255, 255, 255, 0.616);
+  width: fit-content;
+  cursor: pointer;
+  color: rgb(232, 145, 252);
+}
+
+@media screen and (max-width: 1000px) {
+  .app-navbar a {
+      color: white;
+      float: center;
+      padding: 10px 14px;
+      text-decoration: none;
+      text-align: center;
+      font-size: 12px;
+      font-family: monospace;
+  }
+
+  .app-navbar a:hover {
+      color: rgb(232, 145, 252);
+      transition: 0.5s;
+      
+  }
+  .app-navbar {
+      width: 100%;
+  }
+
+  .pfp {
+      width: 180px;
+      top: 20%;
+      left: 35%;
+      float: center;
+  }
+
+  #video {
+      width: max-content;
+      height: 100%;
+  }
+
+  .section-heading {
+      font-size: 2rem;
+  }
+
+  .section-heading:hover {
+      font-size: 2.3rem;
+  }
+
+  .welcome {
+      padding: 20px;
+      position: absolute;
+      top: 40%;
+      left: 10%;
+      font-size: 1.5rem;
+      align-self: center;
+  }
+
+  .welcome-2 {
+      padding: 20px;
+      position: absolute;
+      top: 48%;
+      align-self: center;
+      font-size: 1.2rem;
+  }
+}
+
+.app-navbar {
+  overflow: visible;
+  position: fixed;
+  width: 100%;
+  background-color: rgba(13, 0, 70, 1);
+  padding-right: 30px;
+  margin-bottom: 20px;
+  z-index: 5;
+}
+
+.app-navbar a {
+  color: white;
+  float: right;
+  padding: 16px 20px;
+  text-decoration: none;
+  text-align: center;
+  font-size: 18px;
+  font-family: monospace;
+}
+
+
+.app-navbar a:hover {
+  background-color: rgba(2, 0, 14, 0.852);
+  color: rgb(255, 255, 255);
+  font-weight: bolder;
+  box-shadow: 0px 3px 0px rgba(255, 255, 255, 0.4);
+  cursor: pointer;
+}
+

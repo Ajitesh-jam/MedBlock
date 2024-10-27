@@ -6,7 +6,7 @@
 
 :root {
   --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 106, 90, 205; /* Updated to #6A5ACD */
+  --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
 }
 
@@ -20,7 +20,7 @@
 
 html,
 body {
-  @apply m-0 p-0 bg-[#6A5ACD]; /* Set background color to #6A5ACD */
+  @apply m-0 p-0 bg-[#f8f8fa] scroll-pt-12;
   font-family: 'Inter', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
