@@ -209,12 +209,13 @@ const UserInfo = ({ token, setToken }: LoginProps) => {
           <p>Now you can go back to the home page and log in using your Aadhar number.</p>
           <div style={{ border: "1px solid black", padding: "10px" }}>
   <a href="http://localhost:5173/">Home</a>
+  
 </div>
 
         </div>
       ) : (
         <div>
-          <div style={{ marginBottom: "20px", fontSize: "24px", color: "#9deeab" }}>Patient Sign-Up</div>
+          <div style={{ marginBottom: "20px", fontSize: "24px", color: "#8A2BE2" }}>Patient Sign-Up</div>
           <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "15px" }}>
             <input
               type="text"

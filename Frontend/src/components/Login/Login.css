@@ -24,6 +24,9 @@
   min-height: 400px; /* Optional: set a minimum height for the container */
 }
 
+.login-container h2{
+  color: "white"
+}
 
 /* Input field styling with hover effects */
 .login-input {
@@ -169,13 +172,7 @@
     
 }
 
-body {
-  display: flex;
-  justify-content: center; /* Center horizontally */
-  align-items: flex-start; /* Align items to the top */
-  height: 100vh; /* Full viewport height */
-  margin: 0; /* Remove default margin */
-}
+
 
 .dropdown1 {
   margin-top: 20%; /* Space from the top */

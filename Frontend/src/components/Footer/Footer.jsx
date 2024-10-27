@@ -27,36 +27,25 @@
 
 
 import React from 'react';
-import './Footer.css'; // Import the CSS file
+import './Footer.css';
 import logo from "../../assets/medblock-high-resolution-logo (1).png"
-const Footer = () => {
+
+function Footer() {
     return (
         <footer className="footer">
-            <div className="footer-logo">
-            <img src={logo} alt="Logo" />
-            </div>
-            <div className="footer-columns">
-                <div className="footer-column">
-                    <h4> About </h4>
-                    <ul>
-                        <li>Github </li>
-                        <li>Developers</li>
-                        <li>Contact Us</li>
-                    </ul>
+            <div className="footer-left">
+                <div className="footer-logo">
+                    <img src={logo} alt="Logo" />
                 </div>
-                <div className="footer-column">
-                    <h4>Socials</h4>
-                    <ul>
-                        <li>X</li>
-                        <li>Instagram</li>
-                        <li>Farcaster</li>
-                        <li>Discord</li>
-                    </ul>
+                <div className="footer-links">
+                    <p>Contact Us</p>
+                    <p>About Us</p>
+                    <p>Privacy Policy</p>
                 </div>
-                
             </div>
         </footer>
     );
-};
+}
 
 export default Footer;
+

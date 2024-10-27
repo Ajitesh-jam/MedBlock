@@ -1,10 +1,6 @@
 /* LoginPatient1.css */
 
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-  }
+
   
   body, html {
     height: 100%;
@@ -27,7 +23,10 @@
   }
   
   .login-container {
-    position: relative;
+    position: fixed;
+    top: 25%;
+    left: 33%;
+    transform: translate(-50%, -50%);
     width: 350px;
     background: rgba(255, 255, 255, 0.9);
     border-radius: 15px;
@@ -37,7 +36,8 @@
     text-align: center;
     animation: slideUp 0.8s ease-out forwards;
     opacity: 0;
-  }
+}
+
   
   @keyframes slideUp {
     from {
@@ -51,32 +51,29 @@
   }
   
   .pfp-container1 {
-    display: flex;
+    position: fixed;
+    top: 10%;
+    left: 40%;
+    transform: translate(-50%, -50%);
     justify-content: center;
-    margin-bottom: 20px;
+    margin-bottom: 40px;
   }
   
   .pfp {
     width: 80px;
     height: 80px;
-    border-radius: 50%;
-    animation: pulse 1.5s infinite;
-  }
+    border-radius: 25%;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.pfp:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+}
   
-  @keyframes pulse {
-    0%, 100% {
-      transform: scale(1);
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    }
-    50% {
-      transform: scale(1.1);
-      box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
-    }
-  }
-  
-  h2 {
-    font-size: 24px;
-    color: #333;
+  .login-container h2 {
+    font-size: 34px;
+    color: #6c63ff;
     margin-bottom: 20px;
     font-weight: 600;
     animation: fadeIn 1s ease-in forwards;
@@ -147,16 +144,4 @@
     opacity: 0;
   }
   
-  .login-container .pfp {
-    animation: rotateAndGrow 2s infinite alternate;
-  }
-  
-  @keyframes rotateAndGrow {
-    0% {
-      transform: scale(1) rotate(0deg);
-    }
-    100% {
-      transform: scale(1.1) rotate(360deg);
-    }
-  }
-  
+ 

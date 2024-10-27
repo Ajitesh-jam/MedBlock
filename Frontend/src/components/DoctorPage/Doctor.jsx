@@ -159,26 +159,19 @@ function Doctor() {
         <video className="video" autoPlay loop muted id="video">
           <source src={vid} type="video/mp4" />
         </video>
-        
       </div>
-
-     
-
-      
-
-     <div className="login-container">
-     
-      
-
-      {/* Search bar */}
-      <input
-        type="text"
-        id="search"
-        value={searchQuery}
-        onChange={handleSearch}
-        placeholder={`Search by ${searchBy}`}
-        className="search-bar"
-      />
+  
+      <div className="login-container">
+        {/* Search bar */}
+        <input
+          type="text"
+          id="search"
+          value={searchQuery}
+          onChange={handleSearch}
+          placeholder="Search Patients"
+          className="search-bar"
+        />
+         <button onClick={connectWallet}>Connect Wallet</button>
       <div className="search-filter">
         <label htmlFor="searchBy">Search by:</label>
         <select id="searchBy" value={searchBy} onChange={(e) => setSearchBy(e.target.value)}>
@@ -187,28 +180,23 @@ function Doctor() {
           <option value="email">Email</option>
         </select>
       </div>
-
-      {/* Display search results */}
-      <div className="search-results">
-        {filteredPatients.map((patient, index) => (
-          <div key={index} className="search-results-item" onClick={() => selectPatient(patient)}>
-            <img src={patient.url} alt={patient.name} className="result-image" />
-            <p>{patient.name}</p>
-          </div>
-        ))}
+  
+        {/* Results container */}
+        <div className="search-results">
+          {filteredPatients.map((patient) => (
+            <div className="search-results-item" key={patient.id}>
+              <img
+                src={patient.image}
+                alt={patient.name}
+                className="result-image"
+              />
+              <h3>{patient.name}</h3>
+            </div>
+          ))}
+        </div>
       </div>
-<div>
-      {/* Render selected patient's details */}
-      {renderPatientDetails()}
-
-      {/* Action buttons */}
-      <button onClick={connectWallet}>Connect Wallet</button>
-      </div>
-      </div>
-     
-      
     </>
   );
-}
+}  
 
 export default Doctor;

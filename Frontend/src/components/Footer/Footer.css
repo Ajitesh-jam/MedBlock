@@ -1,57 +1,42 @@
-
-    .footer {
-        position: relative; /* Make the footer fixed at the bottom */
-        bottom: 0;
-        left: 0;
-        width: 85; /* Full width footer */
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 15px 30px;
-        background-color: #101027; /* Slight transparency for floating effect */
-        box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1); /* Shadow above the footer */
-        z-index: 1000; /* Ensure the footer is on top of other content */
-        font-family: 'Courier Prime', monospace; /* Apply Courier Prime font */
-    }
-    
-
-
-.footer-logo img {
-    width: 200px; 
-    position: relative;
-    left: 180px;
-    padding: 50px;
-}
-
-.footer-columns {
+/* Footer container */
+.footer {
+    background-color: #101027; /* Blue-black theme */
+    color: #9deeab; /* Light greenish color for text */
+    padding: 20px 0;
     display: flex;
-    gap: 50px; /* Space between columns */
-    padding: 30px;
-    right: 40px
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow */
 }
 
-.footer-column {
-    color: #9deeab; /* Light color for text */
+/* Footer left section */
+.footer-left {
+    display: flex;
+    align-items: center;
+    gap: 800px;
 }
 
-.footer-column h4 {
-    margin-bottom: 10px; /* Space below headings */
-    font-weight: bolder;
-    font-size: 24px;
-
+/* Logo styling */
+.footer-logo img {
+    width: 80px; /* Adjust as needed */
+    border-radius: 10px;
 }
 
-.footer-column ul {
-    list-style-type: none; /* Remove default list style */
-    padding: 0; /* Remove default padding */
+/* Links column styling */
+.footer-links {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
 }
 
-.footer-column li {
-    margin: 5px 0; /* Space between list items */
-    transition: color 0.3s ease; /* Smooth transition for hover effect */
+.footer-links p {
+    margin: 0;
+    color: #9deeab; /* Text color */
+    cursor: pointer;
+    transition: color 0.3s ease;
 }
 
-.footer-column li:hover {
-    color: #A4D7E1; /* Change color on hover */
-    cursor: pointer; /* Change cursor to pointer on hover */
+.footer-links p:hover {
+    color: #A4D7E1; /* Hover color */
 }

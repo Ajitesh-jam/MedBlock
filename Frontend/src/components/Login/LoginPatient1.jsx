@@ -2,13 +2,13 @@ import React,{ useState } from "react";
 import axios from "axios";
 import usePatients from "../../hooks/patient.zustand"; // Zustand store
 import { useNavigate } from "react-router-dom"; // For navigation
-import "./Login.css";
+// import "./Login.css";
 import Navbar from "../Navbar/Navbar";
 import vid from "../../assets/d.mp4"
 
 import logo from "../../assets/medblock-high-resolution-logo (1).png"
 
-// import "./loginPatient.css"
+import "./loginPatient.css"
 const LoginPatient1 = () => {
   const [adhar, setAdhar] = useState("");
   const setNewPatient = usePatients((state) => state.setNewPatient); // Zustand action
@@ -65,7 +65,7 @@ const LoginPatient1 = () => {
     <div className="pfp-container1">
         <img src={logo} alt="MedBlock" className="pfp" />
       </div>
-      <h2>Patient Login</h2>
+      <h2 color="white">Patient Login</h2>
       <input
         type="text"
         value={adhar}
@@ -76,7 +76,7 @@ const LoginPatient1 = () => {
       />
       <button onClick={loginPatient}>Login</button>
       <div >
-      Don't Have account?
+     
       <button ><a href="http://localhost:3000/">Sign Up</a> </button>
     </div>
     </div>
