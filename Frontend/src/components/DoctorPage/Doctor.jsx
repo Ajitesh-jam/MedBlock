@@ -1,14 +1,9 @@
 import "./Doctor.css";
 import { useState, useEffect } from "react";
 import { getAccounts, getMedicalRecord, updateRecordByDoctor } from "../../utils/web3"; // Added updateRecordByDoctor
-import usePatients from "../../hooks/patient.zustand"; // Zustand hook
 import vid from "../../assets/d.mp4";
-
 import axios from "axios";
-
-
-
- import { uploadFile,retrieveFile ,retrieveFileWithSignedURL} from "../../utils/pinata";
+import { uploadFile ,retrieveFileWithSignedURL} from "../../utils/pinata";
 
 
 function Doctor() {
@@ -19,16 +14,47 @@ function Doctor() {
   const [searchBy, setSearchBy] = useState('name'); // Search filter option
   const [filteredPatients, setFilteredPatients] = useState([]); // Filtered patients based on search
   const [medicalRecords, setMedicalRecords] = useState([]); // State for storing medical records
-  
-
-  const patients = usePatients((state) => state.patients); // Zustand hook at the top level
-  const addPatient = usePatients((state) => state.addPatient); // Zustand action to add a patient
-
-
   const [file, setFile] = useState(null);
   const [cid, setCid] = useState('');
+  const [fileUrls, setFileUrls] = useState([]); // Array to store URLs for each record
+  const [loading, setLoading] = useState([]);    // Array to track loading states for each record
+
+
   let newRecord = cid;
 
+    // Fetch all patients from the web2 API on mount
+    useEffect(() => {
+      const fetchPatients = async () => {
+        try {
+          const response = await axios.get('http://localhost:8000/getAllPatients');
+          console.log(response.data);
+          setAllPatients(response.data); // Store fetched patients
+          setFilteredPatients(response.data); // Initially, all patients are shown
+        } catch (error) {
+          console.error("Error fetching patients:", error);
+        }
+      };
+      fetchPatients();
+
+     
+    }, []);
+
+      // Fetch URLs for all medical records on initial render
+  useEffect(() => {
+    if(medicalRecords.length > 0){
+      medicalRecords.forEach((record, index) => {
+
+        if (!fileUrls[index] && !loading[index] ) {
+          if(record!="No records found")
+          handleRetrieve(record, index);
+          else{
+            setFileUrls([...fileUrls, "No records found"]);
+            setLoading([...loading, false]);
+          } 
+        }
+      });
+  }
+  }, [medicalRecords]);
 
   const handleFileChange = (event) => {
     setFile(event.target.files[0]);
@@ -49,21 +75,6 @@ function Doctor() {
       console.error("Error uploading file:", error);
     }
   };
-
-  // Fetch all patients from the web2 API on mount
-  useEffect(() => {
-    const fetchPatients = async () => {
-      try {
-        const response = await axios.get('http://localhost:8000/getAllPatients');
-        console.log(response.data);
-        setAllPatients(response.data); // Store fetched patients
-        setFilteredPatients(response.data); // Initially, all patients are shown
-      } catch (error) {
-        console.error("Error fetching patients:", error);
-      }
-    };
-    fetchPatients();
-  }, []);
 
   // Function to connect the wallet
   const connectWallet = async () => {
@@ -97,22 +108,37 @@ function Doctor() {
     }
   };
 
-  // Function to select a patient from the search results
   const selectPatient = async (selectedPatient) => {
-    setPatient(selectedPatient); // Set the selected patient
-    const medicalRecords = await handleGetMedicalRecord(selectedPatient.publicAddress); // Fetch medical record via Web3
-    setMedicalRecords(medicalRecords); // Store fetched medical records
+    setMedicalRecords([]); // Set to null to indicate loading
+    setPatient(selectedPatient);    // Set the selected patient
+    setFileUrls([]); // Reset file URLs
+    setLoading([]); // Reset loading statesz
   };
+  
+  useEffect(() => {
+    // When medicalRecords is null, we fetch new medical records
+
+    if (medicalRecords.length===0 && patient) {
+      (async () => {
+        const records = await handleGetMedicalRecord(patient.publicAddress);
+        setMedicalRecords(records);
+        
+      })();
+    }
+  }, [medicalRecords, patient]);
 
   // Function to get a medical record using the Web3 contract
   const handleGetMedicalRecord = async (publicAddress) => {
+
     try {
       if (!publicAddress) {
         console.log("No public address provided");
         return;
       }
       const medicalRecord = await getMedicalRecord(publicAddress,account);
-      console.log("Medical Record:", medicalRecord);
+      
+
+      
       return medicalRecord; // Return the fetched medical record
     } catch (e) {
       console.error("Error fetching medical record:", e);
@@ -144,9 +170,6 @@ function Doctor() {
     }
   };
 
-  const [fileUrls, setFileUrls] = useState([]); // Array to store URLs for each record
-  const [loading, setLoading] = useState([]);    // Array to track loading states for each record
-
   // Function to fetch the file URL only once per CID
   const handleRetrieve = async (cid, index) => {
     if (!cid) return;
@@ -165,6 +188,7 @@ function Doctor() {
         updatedUrls[index] = url;  // Store retrieved URL in the corresponding index
         return updatedUrls;
       });
+
     } catch (error) {
       console.error("Error retrieving file:", error);
     } finally {
@@ -173,23 +197,22 @@ function Doctor() {
         updatedLoading[index] = false;  // Set loading state to false after fetching
         return updatedLoading;
       });
+
     }
   };
 
-  // Fetch URLs for all medical records on initial render
-  useEffect(() => {
-    medicalRecords.forEach((record, index) => {
-      if (!fileUrls[index] && !loading[index]) {
-        handleRetrieve(record, index);
-      }
-    });
-  }, [medicalRecords]);
-
   const renderPatientDetails = () => {
+    
     if (!patient) return null;
 
     return (
+      <>
+      
       <div className="patient-details">
+      <div className="patient-details">
+        <img src={patient.url} alt="Patient" className="patient-image" />
+        <h3>{patient.name}</h3>
+      </div>
         <div className="medical-records">
           <h4>Medical Records:</h4>
           {medicalRecords.length > 0 ? (
@@ -206,7 +229,7 @@ function Doctor() {
               </div>
             ))
           ) : (
-            <p>No medical records found or please connect a verified doctor's wallet.</p>
+            <p>No medical records Found!!<br></br> Or please connect a verified doctor's wallet.</p>
           )}
           <div>
             <h2>Upload File</h2>
@@ -220,6 +243,7 @@ function Doctor() {
           </div>
         </div>
       </div>
+      </>
     );
   };
 
@@ -229,13 +253,17 @@ function Doctor() {
     {
       account ? (
         <>
-          <div className="app-container">
-              <video className="video" autoPlay loop muted id="video">
-                <source src={vid} type="video/mp4" />
-              </video>
-              
-            </div>
           <div className="login-container">
+          <div className="app-container">
+            <video className="video" autoPlay loop muted id="video">
+              <source src={vid} type="video/mp4" />
+            </video>
+          </div>
+
+          {/* Render selected patient's details */}
+            
+          {renderPatientDetails()}
+          
             {/* Search bar */}
             <input
               type="text"
@@ -259,16 +287,17 @@ function Doctor() {
             {/* Display search results */}
             <div className="search-results">
               {filteredPatients.map((patient, index) => (
-                <div key={index} className="search-results-item" onClick={() => selectPatient(patient)}>
+                <div key={index} className="search-results-item" onClick={() => 
+                  selectPatient(patient)
+                 
+                }>
                   <img src={patient.url} alt={patient.name} className="result-image" />
                   <p>{patient.name}</p>
                 </div>
               ))}
             </div>
             <div>
-            {/* Render selected patient's details */}
             
-            {renderPatientDetails()}
 
             {/* Action buttons */}
 
@@ -280,13 +309,6 @@ function Doctor() {
          <button onClick={connectWallet}>Connect Wallet</button>
       )
     }
-
-
-
-
-
-     
-     
       
     </>
   );

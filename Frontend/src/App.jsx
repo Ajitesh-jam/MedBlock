@@ -161,7 +161,7 @@ function MainApp() {
     <Router>
       <Routes>
         <Route path="/" element={<App />} />
-        <Route path="/Doctor" element= {<> <Doctor /></> } />
+        <Route path="/Doctor" element= {<Doctor /> } />
         <Route path="/Patient" element={<Patient />} />
         <Route path="/Login" element={<Login />} />
         <Route path="/Patient" element={<PatientPage />} />

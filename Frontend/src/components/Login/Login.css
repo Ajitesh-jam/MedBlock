@@ -14,7 +14,7 @@
   padding: 40px; /* Increased padding for more space */
   border-radius: 8px;
   box-shadow: 0px 4px 20px rgba(75, 0, 130, 0.2);
-  max-width: 600px; /* Increased max width for a larger container */
+
   width: 100%; /* Ensure it takes full width up to max-width */
   margin: 0 auto;
   position: absolute;

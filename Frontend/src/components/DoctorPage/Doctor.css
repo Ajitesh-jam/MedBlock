@@ -1,13 +1,52 @@
-
 @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
 
 .app-container {
-  position: relative;
+  display: flex;
+  padding: 20px;
+  width: 1920px; /* Ensure to specify units (px) */
+  gap: 40px; /* Space between flex items */
+  justify-content: center;
+  align-items: center;
+  height: 90vh; /* 80% of the viewport height */
+  color: white; /* Text color */
+}
+.login-container {
+
+  overflow-y: scroll;
+  background-color: #2e2e64; /* Adjust color as needed */
+  display: flex;
+  justify-content: center; /* Centers the content horizontally */
+  padding: 20px; /* Optional padding for spacing */
+  box-sizing: border-box;
+}
+
+.scrollable-item {
+  width: 90%; /* Adjust if you want a margin from the edges */
+
+  margin: 10px 0;
+  padding: 20px;
+  background-color: #000; /* Background color of each item */
+  border-radius: 10px;
+  color: #fff;
   text-align: center;
-  width: 100%;
-  color: white;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.scrollable-item img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  margin-bottom: 10px;
+}
+
+
+body, html {
+  margin: 0;
+  padding: 0;
+  font-family: 'Montserrat', sans-serif;
+  overflow-x: hidden;
 }
 
 .video {
@@ -20,35 +59,22 @@
   z-index: -1;
 }
 
-.welcome-2, .welcome-3 {
-  margin: 20px;
-}
 
-.pfp-container {
-  margin-top: 20px;
-}
 
-.pfp {
-  width: 150px;
-  height: auto;
-}
+
 
 .search-bar {
   margin: 20px auto;
-  position: flex;
   padding: 10px;
-  
-  width: 60%; /* Adjusted for better centering */
-  max-width: 600px; /* Optional: limits width on larger screens */
+  width: 90%;
+
   border-radius: 5px;
   border: 1px solid #0202c9;
   background-color: #000065;
   color: #333;
   font-size: 16px;
-  transition: box-shadow 0.3s ease-in-out;
-
-  /* Centering within a container */
   display: block;
+  transition: box-shadow 0.3s ease-in-out;
 }
 
 .search-bar:focus {
@@ -61,27 +87,18 @@
               0 0 30px rgba(123, 104, 238, 0.3);
 }
 
-
-/* Container for the grid */
 .search-results {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  padding: 10px; /* 3 items per row */
-  
-  position: flex;
-  top: 30%;
-  
-  gap: 20px; /* Space between items */
-  width: 100%; /* Full width */
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px;
+  width: 100%;
+  padding: 10px;
   margin: 20px auto;
+  box-sizing: border-box;
 }
 
-
-/* Styling for each result item */
 .search-results-item {
   background-color: rgba(0, 0, 0, 0.7);
-  position: center;
-  
   padding: 20px;
   border-radius: 10px;
   color: #fff;
@@ -89,17 +106,12 @@
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* Hover effect for each result item */
 .search-results-item:hover {
-  transform: scale(1.05); /* Slightly enlarges the item */
+  transform: scale(1.05);
   box-shadow: 0 0 10px rgba(123, 104, 238, 0.7),
               0 0 20px rgba(75, 0, 130, 0.5),
-              0 0 30px rgba(123, 104, 238, 0.3); /* Adds a glow */
+              0 0 30px rgba(123, 104, 238, 0.3);
 }
-
-
-
-
 
 .result-image {
   width: 100px;
@@ -108,301 +120,179 @@
   margin-bottom: 10px;
 }
 
+/* Container for patient details */
 .patient-details {
-  margin: 20px auto;
-  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
   padding: 20px;
+  background: #f7f8fc;
   border-radius: 10px;
-  color: #fff;
-  text-align: left;
-  width: 80%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 500px;
+  margin: auto;
+  transition: transform 0.3s ease-in-out;
 }
 
+.patient-details:hover {
+  transform: scale(1.02);
+}
+
+/* Patient image */
 .patient-image {
-  width: 150px;
-  height: auto;
-  margin-bottom: 10px;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 15px;
+  transition: box-shadow 0.3s ease;
 }
 
+.patient-image:hover {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Medical records container */
 .medical-records {
   margin-top: 20px;
+  width: 100%;
 }
 
-.medical-records p {
+.medical-records h4 {
+  margin-bottom: 10px;
+  font-size: 18px;
+  color: #333;
+}
+
+.medical-records div {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
   font-size: 16px;
-  margin: 5px 0;
 }
 
-.btn {
-  margin-top: 20px;
-  position: absolute;
-  left: 50%;
-  align-items: center;
-  background-color: #4CAF50;
+a {
+  color: #1d72b8;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+.loading-animation {
+  font-size: 14px;
+  color: #999;
+  animation: pulse 1.5s infinite;
+}
+
+/* Upload section styling */
+input[type="file"] {
+  margin-top: 15px;
+}
+
+button {
+  margin-top: 10px;
+  padding: 10px 20px;
   border: none;
   border-radius: 5px;
+  background-color: #007bff;
   color: white;
   font-size: 16px;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
-.btn:hover {
-  background-color: #45a049;
+button:hover {
+  background-color: #0056b3;
 }
 
-
-
-
-.video {
-  display: flex;
-  
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-  width: 100%;
+button:active {
+  background-color: #004085;
 }
 
-.app-container {
-  width: 100%;
-  color: rgb(255, 255, 255);
-  display: 'flex';
-  padding: 20;
-  gap: '40px';
-  justify-content: 'center';
-  align-items: 'center';
-  height: '80vh';
-  background-color: '#4B0082';/* Purplish blue background */
-  color: 'white';
+button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.cid-message {
+  margin-top: 10px;
+  font-size: 14px;
+  color: green;
+}
+
+/* Animation for loading text */
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/* Responsive design */
+@media (max-width: 600px) {
+  .patient-details {
+    padding: 10px;
+    max-width: 90%;
+  }
+
+  h3 {
+    font-size: 18px;
+  }
+
+  h4 {
+    font-size: 16px;
+  }
+
+  button {
+    font-size: 14px;
+    padding: 8px 16px;
+  }
 }
 
 .welcome {
   width: max-content;
   background-color: rgba(0, 0, 0, 0.5);
   padding: 20px;
-  font-family: "Montserrat", sans-serif;
+  font-family: 'Raleway', sans-serif;
+  font-weight: 700;
+  font-size: 56px;
+  color: #9deeab;
   position: absolute;
   top: 10%;
   left: 10%;
-  font-family: 'Raleway', sans-serif;
-  font-weight: 1700; /* Bold weight */
-  font-size: 56px;  /* Suitable size for app name */
-  letter-spacing: 1.5px; /* Adjust letter spacing */
-  color: #9deeab; /* Example color */
-}
-
-.welcome-2 {
-  width: max-content;
-  font-family: "Poppins", sans-serif;
-  padding: 20px;
-  position: absolute;
-  top: 40%;
-  
-  transition-duration: 1s;
-  left: 10%;
-}
-
-.welcome-2:hover {
-  transition: 1s;
-  font-display: bold;
-  box-sizing: content-box;
-  box-shadow: 0px 3px 0px rgba(255, 255, 255, 0.4);
-  width: fit-content;
-  cursor: pointer;
-  color: antiquewhite;
-}
-
-.welcome-3 {
-  
-  width: max-content;
-  font-family: "Montserrat", sans-serif;
-  padding: 20px;
-  position: absolute;
-  top: 60%;
-  
-  transition-duration: 1s;
-  left: 10%;
-}
-.app-navbar {
-  overflow: visible;
-  position: fixed;
-  width: 100%;
-  background-color: rgba(13, 0, 70, 1);
-  padding-right: 30px;
-  margin-bottom: 20px;
-  z-index: 5;
-}
-
-.app-navbar a {
-  color: white;
-  float: right;
-  padding: 16px 20px;
-  text-decoration: none;
-  text-align: center;
-  font-size: 18px;
-  font-family: monospace;
-}
-
-
-.app-navbar a:hover {
-  background-color: rgba(2, 0, 14, 0.852);
-  color: rgb(255, 255, 255);
-  font-weight: bolder;
-  box-shadow: 0px 3px 0px rgba(255, 255, 255, 0.4);
-  cursor: pointer;
-}
-
-.pfp {
-    width: 300px;
-    position: absolute;
-    top: 12%;
-    left: 10%;
-    padding: 10px;
-    box-sizing: border-box;
-    border-radius: 50%;
-    overflow: hidden;
-    transform: translatey(0px);
-    animation: float 6s ease-in-out infinite;
-    
-}
-
-.experience {
-  padding: 10px;
-  background: linear-gradient(109.6deg, rgb(9, 9, 121) 11.2%, rgb(144, 6, 161) 53.7%, rgb(0, 212, 255) 100.2%);
-  background-size: 600% 100%;
-  animation: gradient 8s linear infinite;
-  animation-direction: alternate;
-  width: 100%;
-}
-
-.astro-4 {
-  width: 160px;
-  position: absolute;
-  right: 20%;
-  padding: 5px;
-  overflow: hidden;
-  margin: 5px;
-  transform: translatey(0px);
-  animation: float 10s ease-in-out infinite;
-}
-
-.sphere {
-  width: 160px;
-  position: absolute;
-  left: 5%;
-  padding: 5px;
-  overflow: hidden;
-  margin: 5px;
-  transform: translatey(0px);
-  animation: float 7s ease-in-out infinite;
-}
-
-
-.section-heading {
-  text-shadow: 0px 0px 10px rgba(255, 255, 255, 0.4);
-  font-size: 3rem;
-  margin-bottom: 20px;
-  font-family: monospace;
-  color: white;
-  
-  transition-duration: 1s;
-}
-
-.section-heading:hover {
-  transition: 1s;
-  font-size: 3.2rem;
-  font-display: bold;
-  box-shadow: 0px 5px 0px rgba(255, 255, 255, 0.616);
-  width: fit-content;
-  cursor: pointer;
-  color: rgb(232, 145, 252);
+  letter-spacing: 1.5px;
 }
 
 @media screen and (max-width: 1000px) {
-  .app-navbar a {
-      color: white;
-      float: center;
-      padding: 10px 14px;
-      text-decoration: none;
-      text-align: center;
-      font-size: 12px;
-      font-family: monospace;
-  }
-
-  .app-navbar a:hover {
-      color: rgb(232, 145, 252);
-      transition: 0.5s;
-      
-  }
-  .app-navbar {
-      width: 100%;
-  }
+  
 
   .pfp {
-      width: 180px;
-      top: 20%;
-      left: 35%;
-      float: center;
-  }
-
-  #video {
-      width: max-content;
-      height: 100%;
+    width: 150px;
+    top: 20%;
+    left: 50%;
+    transform: translateX(-50%);
   }
 
   .section-heading {
-      font-size: 2rem;
+    font-size: 2rem;
   }
 
   .section-heading:hover {
-      font-size: 2.3rem;
+    font-size: 2.3rem;
   }
 
   .welcome {
-      padding: 20px;
-      position: absolute;
-      top: 40%;
-      left: 10%;
-      font-size: 1.5rem;
-      align-self: center;
+    font-size: 1.5rem;
+    padding: 20px;
+    top: 20%;
+    left: 10%;
   }
-
-  .welcome-2 {
-      padding: 20px;
-      position: absolute;
-      top: 48%;
-      align-self: center;
-      font-size: 1.2rem;
-  }
-}
-
-.app-navbar {
-  overflow: visible;
-  position: fixed;
-  width: 100%;
-  background-color: rgba(13, 0, 70, 1);
-  padding-right: 30px;
-  margin-bottom: 20px;
-  z-index: 5;
-}
-
-.app-navbar a {
-  color: white;
-  float: right;
-  padding: 16px 20px;
-  text-decoration: none;
-  text-align: center;
-  font-size: 18px;
-  font-family: monospace;
-}
-
-
-.app-navbar a:hover {
-  background-color: rgba(2, 0, 14, 0.852);
-  color: rgb(255, 255, 255);
-  font-weight: bolder;
-  box-shadow: 0px 3px 0px rgba(255, 255, 255, 0.4);
-  cursor: pointer;
 }
 
 .loading-animation {
