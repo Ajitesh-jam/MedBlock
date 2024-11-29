@@ -18,6 +18,9 @@ import Login from "./components/Login/login";
 import PatientPage from "./components/PatientPage/patient";
 
 import DoctorSignUp from "./components/SignUp/DoctorSignUp";
+
+
+import UploadToIPFS from "./components/IPFS/ipfsTest";
 function App() {
   const navigate = useNavigate(); // Hook to navigate to routes
 
@@ -129,6 +132,9 @@ function App() {
           onClick={() => handleClick("/Patient")} // Navigates to /Patient
         />
       </div> */}
+
+
+      <UploadToIPFS/>
       
         <div id="Footer">
         <Footer />

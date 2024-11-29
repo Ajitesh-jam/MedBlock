@@ -1,0 +1,41 @@
+{
+  "ipfs": "Bundled",
+  "state_store": {
+    "LocalDirectory": "/etc/ceramic/data"
+  },
+  "http_api": {
+    "hostname": "127.0.0.1",
+    "port": 7007,
+    "cors_allowed_origins": [],
+    "admin_dids": [
+      "did:key:z6MkkNZJxrZpvd8EUX4fANTyjcGxf7KWEnViLCEcNsMd68B8",
+      "did:key:z6Mkv6uUPY1qnotP2qiNhuBbft2pDguv5J6sftuWse9SvWNN"
+    ]
+  },
+  "network": {
+    "id": "InMemory",
+    "pubsub_topic": null
+  },
+  "anchor": "None",
+  "indexing": {
+    "db": "sqlite:///Users/ajiteshjamulkar/Desktop/MedBlock/ceramic/ceramic-app/ceramic-indexing/ceramic.db",
+    "allow_queries_before_historical_sync": true,
+    "enable_historical_sync": false
+  },
+  "did_resolvers": {
+    "Ethr": {}
+  },
+  "node": {
+    "gateway": false,
+    "sync_override": false,
+    "stream_cache_limit": 100
+  },
+  "logger": {
+    "file": {
+      "enabled": true,
+      "directory": "./log/ceramic"
+    },
+    "level": "Info"
+  },
+  "metrics": "Disabled"
+}

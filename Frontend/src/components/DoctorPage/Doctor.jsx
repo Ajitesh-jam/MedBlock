@@ -35,8 +35,6 @@ function Doctor() {
         }
       };
       fetchPatients();
-
-     
     }, []);
 
       // Fetch URLs for all medical records on initial render

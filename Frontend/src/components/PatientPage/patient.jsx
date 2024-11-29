@@ -135,6 +135,7 @@ import PatientSignUp from "../SignUp/patientSignUp";
 import Navbar from "../Navbar/Navbar";
 
 
+
 const PatientPage = () => {
   const patient = usePatients((state) => state.newPatient);
   const [medicalRecords, setRecords] = useState([]);

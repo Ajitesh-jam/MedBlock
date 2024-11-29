@@ -1,0 +1,4 @@
+
+#!/usr/bin/env sh
+
+node /Users/ajiteshjamulkar/Desktop/MedBlock/ceramic/ceramic-app/node_modules/.bin/ceramic "$@"
