@@ -4,8 +4,10 @@ import Layout from "@/components/layout/Layout"
 import Link from "next/link"
 import { getAccounts, getMedicalRecord, updateRecordByDoctor } from "../../components/utils/web3.js"; // Added updateRecordByDoctor
 import usePatients from "../../components/hooks/patient.zustand"
-import { useState} from 'react';
+import { useState, useEffect} from 'react';
 
+
+import { retrieveFileWithSignedURL,uploadFile } from '@/components/utils/pinata.js';
 const ProgressBar = ({ label, percent }) => (
     <div className="progress-box">
       <p>{label}</p>
@@ -27,7 +29,7 @@ export default function Home() {
     // Function to connect the wallet
     const connectWallet = async () => {
         try {
-            console.log("Connected account:", account);
+            
             const accounts = await getAccounts();
             //setAccount(accounts[0]);
             account = accounts[0];
@@ -48,10 +50,12 @@ export default function Home() {
     //Medical Record
     const [medicalRecords, setMedicalRecords] = useState([
         {
-
+            "NO RECORDS FOUND": "No Records Found"
         }
     ]); // State for storing medical records
     
+    const [fileUrls, setFileUrls] = useState([]); // Array to store URLs for each record
+    const [loading, setLoading] = useState([]);    // Array to track loading states for each record
     // Function to get a medical record using the Web3 contract
     const handleGetMedicalRecord = async (publicAddress) => {
         console.log("Handle get Medical Record with public Address : ",publicAddress);
@@ -73,25 +77,103 @@ export default function Home() {
         }
     };
 
+    //Function to Update Links whenever change in medical records
+    useEffect(() => {
+        if(medicalRecords.length > 0){
+          medicalRecords.forEach((record, index) => {
+    
+            if (!fileUrls[index] && !loading[index] ) {
+              if(record!="No records found")
+              handleRetrieve(record, index);
+              else{
+                setFileUrls([...fileUrls, "No records found"]);
+                setLoading([...loading, false]);
+              } 
+            }
+          });
+      }
+    }, [medicalRecords]);
+
+    //function to get file links from Pinata 
+    const handleRetrieve = async (cid, index) => {
+    if (!cid) return;
+
+    try {
+      setLoading((prev) => {
+        const updatedLoading = [...prev];
+        updatedLoading[index] = true;  // Set loading state for the current record
+        return updatedLoading;
+      });
+
+      const url = await retrieveFileWithSignedURL(cid);
+
+      setFileUrls((prev) => {
+        const updatedUrls = [...prev];
+        updatedUrls[index] = url;  // Store retrieved URL in the corresponding index
+        return updatedUrls;
+      });
+
+    } catch (error) {
+      console.error("Error retrieving file:", error);
+    } finally {
+      setLoading((prev) => {
+        const updatedLoading = [...prev];
+        updatedLoading[index] = false;  // Set loading state to false after fetching
+        return updatedLoading;
+      });
+
+    }
+    };
+
+
+
+
+
     //file to update
     const [file, setFile] = useState(null);
-
-    
-
-
-    
     //Pinata
     const [cid, setCid] = useState('');
-    const [fileUrls, setFileUrls] = useState([]); // Array to store URLs for each record
-    const [loading, setLoading] = useState([]);    // Array to track loading states for each record
+    let newRecord = cid;
+    const handleFileChange = (event) => {
+        setFile(event.target.files[0]);
+    };
+    const handleUpload = async () => {
+        if (!file) {
+          alert("Please select a file to upload");
+          return;
+        }
+    
+        try {
+          const fileCid = await uploadFile(file);
+          setCid(fileCid);
+          console.log("File uploaded with CID:", fileCid);
+          newRecord = fileCid;
+        } catch (error) {
+          console.error("Error uploading file:", error);
+        }
+      };
+   // Function to update a patient's medical record
+    const handleUpdateMedicalRecord = async () => {
+        
+        console.log("Patient:", patient);
+        console.log("New Record:", newRecord);
+        try {
+        
+        if (!patient || !newRecord) {
+            console.error("No patient selected or record entered.");
+            alert("Please select a patient and upload a record to update");
+            return;
+        }
 
+        const updatedRecord = await updateRecordByDoctor(patient.publicAddress, newRecord);
+        console.log("Updated record:", updatedRecord);
+        // Optionally, update the state to reflect the new record in the UI
+        setMedicalRecords([...medicalRecords, newRecord]);
 
-
-
-
-
-
-
+        } catch (error) {
+        console.error("Error updating medical record:", error);
+        }
+    };
 
     return (
         <>
@@ -177,6 +259,15 @@ export default function Home() {
                                                     <ProgressBar label="Recycling" percent={90} />
                                                     <ProgressBar label="Customer support" percent={80} />
                                                 </div> */}
+                                                <input type="file" onChange={handleFileChange} />
+                                                <button type="submit" className="theme-btn btn-one" onClick={handleUpload}><span>Upload File !</span></button>
+                                                {cid && <p> File uploaded successfully! CID: {cid}</p>}
+                                                <button type="submit" className="theme-btn btn-one" onClick={handleUpdateMedicalRecord}><span>Update Medical Record</span></button>
+
+
+
+
+
                                                 
                                             </div>
                                         </div>

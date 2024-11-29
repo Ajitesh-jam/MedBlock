@@ -129,7 +129,7 @@ export async function retrieveFileWithSignedURL(_cid) {
     console.log("Retrieving file:", _cid);
     const url = await pinata1.gateways.createSignedURL({
          cid: _cid.toString(),
-      expires: 50,
+      expires: 5000,
     });
     //console.log("URL:",url);
     return url;

@@ -96,3 +96,13 @@ curl --proto '=https' --tlsv1.2 -sSf https://raw.githubusercontent.com/ceramicst
 
 
 ```
+
+
+
+
+
+#IPFS
+
+```
+npm install -g @web3-storage/w3cli
+w3 login
