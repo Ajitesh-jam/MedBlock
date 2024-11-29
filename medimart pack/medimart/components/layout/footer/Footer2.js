@@ -66,7 +66,7 @@ export default function Footer2() {
                                 </div>
                                 <div className="widget-content">
                                     <ul className="info-list">
-                                        <li><img src="assets/images/icons/icon-1.png" alt="" />3891 Ranchview Dr. Richardson, California USA</li>
+                                        <li><img src="assets/images/icons/icon-1.png" alt="" />IIT Kharagpur</li>
                                         <li><i className="icon-2"></i><Link href="tel:01989526503">0198-9526503</Link></li>
                                         <li><i className="icon-26"></i><Link href="mailto:example@info.com">example@info.com</Link></li>
                                     </ul>
