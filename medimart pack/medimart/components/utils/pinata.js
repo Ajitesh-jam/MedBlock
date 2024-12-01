@@ -64,3 +64,41 @@ export async function retrieveFileWithSignedURL(_cid) {
     console.log(error);
   }
 }
+
+
+
+
+
+
+export async function uploadMedicines(medicines) {
+  try {
+    const formData = new FormData();
+
+    // Convert medicines array to a JSON string
+    const jsonContent = JSON.stringify(medicines, null, 2);
+
+    // Create a file from the JSON string
+    const file = new File([jsonContent], "Medicines.json", { type: "application/json" });
+
+    // Append the file to the FormData
+    formData.append("file", file);
+
+    // Upload to Pinata
+    const request = await fetch("https://uploads.pinata.cloud/v3/files", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${JWT}`, // Replace JWT with your actual token
+      },
+      body: formData,
+    });
+
+    // Parse and log the response
+    const response = await request.json();
+    console.log("Upload Successful:", response);
+    return response;
+  } catch (error) {
+    console.error("Upload Failed:", error);
+  }
+}
+
+

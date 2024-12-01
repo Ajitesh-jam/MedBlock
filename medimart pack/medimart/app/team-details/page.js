@@ -7,7 +7,7 @@ import usePatients from "../../components/hooks/patient.zustand"
 import { useState, useEffect} from 'react';
 
 
-import { retrieveFileWithSignedURL,uploadFile } from '@/components/utils/pinata.js';
+import { retrieveFileWithSignedURL,uploadFile ,uploadMedicines } from '@/components/utils/pinata.js';
 const ProgressBar = ({ label, percent }) => (
     <div className="progress-box">
       <p>{label}</p>
@@ -45,7 +45,7 @@ const medicines = [
 
 
   
-  function MedicineCards() {
+  function MedicineCards(patient) {
     const [selectedMedicine, setSelectedMedicine] = useState(null);
     const [selectedMedicines, setSelectedMedicines] = useState([]);
     const [popupData, setPopupData] = useState({
@@ -54,6 +54,8 @@ const medicines = [
       highlights: "",
     });
     const [searchQuery, setSearchQuery] = useState("");
+
+    //console.log("Patinet from medicine Cards ",patient);///////////////////////////
   
     const options = [
       "After Dinner",
@@ -97,9 +99,14 @@ const medicines = [
     );
 
 
-    function updateMedicines() {
+    async function updateMedicines() {
         console.log("Selected Medicines: ", selectedMedicines);
+        const response=await uploadMedicines(selectedMedicines);
+        console.log("Response from uploadMedicines : ",response.data.cid);
+
     }
+
+    
   
     return (
       <div>
@@ -497,12 +504,6 @@ export default function Home() {
                                             <button type="submit" className="theme-btn btn-one" onClick={handleUpload}><span>Upload File !</span></button>
                                             {cid && <p> File uploaded successfully! CID: {cid}</p>}
                                             <button type="submit" className="theme-btn btn-one" onClick={handleUpdateMedicalRecord}><span>Update File Medical Record</span></button>
-
-
-
-
-
-                                            
                                         </div>
                                     </div>
                                     <div className="col-lg-6 col-md-6 col-sm-12 appointment-column">
@@ -535,7 +536,7 @@ export default function Home() {
                                 </div>
                             </div>
 
-                            <MedicineCards />
+                            <MedicineCards patient={patient} />
 
 
                         </>
@@ -594,4 +595,3 @@ export default function Home() {
                
     );
 }
-

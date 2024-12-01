@@ -86,8 +86,6 @@ export const updateRecordByDoctor = async (patientAddress, record) => {
         const response = await contract.methods
             .updateRecordByDoctor(patientAddress, record)
             .send({ from: accounts[0],
-               
-                
              });
 
 
