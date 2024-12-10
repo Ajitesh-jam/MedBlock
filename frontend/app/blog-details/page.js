@@ -25,10 +25,10 @@ export default function Home() {
                         {/* Add more sidebar widgets as needed */}
                         <div className="sidebar-widget category-widget">
                                 <div className="widget-title">
-                                    <h3>Categories</h3>
+                                    <h3>Medical Records</h3>
                                 </div>
                                 <div className="widget-content">
-                                    <ul className="category-list clearfix">
+                                    <ul className="category-list clearfix"> 
                                         <li><Link href="blog-details">Cardiology</Link></li>
                                         <li><Link href="blog-details">Dental Clinic</Link></li>
                                         <li><Link href="blog-details">Neurosurgery</Link></li>

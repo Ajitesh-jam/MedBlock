@@ -17,8 +17,6 @@ const ProgressBar = ({ label, percent }) => (
       </div>
     </div>
 );
-
-
 // Sample medicine data
 const medicines = [
   {
@@ -45,225 +43,7 @@ const medicines = [
 
 
   
-  function MedicineCards(patient) {
-    const [selectedMedicine, setSelectedMedicine] = useState(null);
-    const [selectedMedicines, setSelectedMedicines] = useState([]);
-    const [popupData, setPopupData] = useState({
-      whenToTake: [],
-      tillWhen: "",
-      highlights: "",
-    });
-    const [searchQuery, setSearchQuery] = useState("");
-
-    //console.log("Patinet from medicine Cards ",patient);///////////////////////////
-  
-    const options = [
-      "After Dinner",
-      "Before Dinner",
-      "After Lunch",
-      "Before Breakfast",
-      "Before Sleep",
-      "Once in a Day Anytime",
-    ];
-  
-    const openPopup = (medicine) => {
-      setSelectedMedicine(medicine);
-      setPopupData({ whenToTake: [], tillWhen: "", highlights: "" });
-    };
-  
-    const handlePopupChange = (key, value) => {
-      if (key === "whenToTake") {
-        setPopupData((prev) => ({
-          ...prev,
-          [key]: value.includes("None")
-            ? ["None"]
-            : value.filter((option) => option !== "None"),
-        }));
-      } else {
-        setPopupData((prev) => ({ ...prev, [key]: value }));
-      }
-    };
-  
-    const handleSubmit = () => {
-      const newEntry = {
-        ...selectedMedicine,
-        ...popupData,
-      };
-      setSelectedMedicines((prev) => [...prev, newEntry]);
-      setSelectedMedicine(null); // Close the popup
-    };
-  
-    // Filter medicines based on search query
-    const filteredMedicines = medicines.filter((medicine) =>
-      medicine.name.toLowerCase().includes(searchQuery.toLowerCase())
-    );
-
-
-    async function updateMedicines() {
-        console.log("Selected Medicines: ", selectedMedicines);
-        const response=await uploadMedicines(selectedMedicines);
-        console.log("Response from uploadMedicines : ",response.data.cid);
-
-    }
-
-    
-  
-    return (
-      <div>
-        <h2>Medicine List</h2>
-  
-        {/* Search Input */}
-        <input
-          type="text"
-          placeholder="Search by medicine name..."
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-          
-        />
-  
-        <section className="team-section sec-pad-2 centred">
-          <div className="auto-container">
-            <div className="row clearfix">
-              {filteredMedicines.map((medicine, index) => (
-                <div
-                  key={index}
-                  className="col-lg-3 col-md-6 col-sm-12 team-block"
-                  onClick={() => openPopup(medicine)}
-                >
-                  <div
-                    className="team-block-one wow fadeInUp animated"
-                    data-wow-delay={`${index * 200}ms`}
-                    data-wow-duration="1500ms"
-                  >
-                    <div className="inner-box">
-                      <div className="image-box">
-                        <figure className="image">
-                          <img
-                            style={{
-                              width: "287px",
-                              height: "220px",
-                              overflow: "hidden",
-                            }}
-                            src={medicine.img}
-                            alt={medicine.name}
-                          />
-                        </figure>
-                      </div>
-                      <div className="lower-content">
-                        <h3>
-                          <a href="#">{medicine.name}</a>
-                        </h3>
-                        <span className="designation">{medicine.category}</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-            {filteredMedicines.length === 0 && (
-              <p style={{ textAlign: "center", marginTop: "20px" }}>
-                No medicines found for "{searchQuery}"
-              </p>
-            )}
-          </div>
-        </section>
-  
-        {/* Selected Medicines */}
-        {selectedMedicines.length > 0 && (
-          <div>
-            <h2>Selected Medicines</h2>
-            <ul>
-              {selectedMedicines.map((med, idx) => (
-                <li key={idx}>
-                  <strong>{med.name}</strong> - {med.category}
-                  <br />
-                  When to Take: {med.whenToTake.join(", ")}
-                  <br />
-                  Till When: {med.tillWhen} days
-                  <br />
-                  Highlights: {med.highlights || "None"}
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
-  
-        {/* Popup for Medicine Details */}
-        {selectedMedicine && (
-          <div
-            style={{
-              position: "fixed",
-              top: "50%",
-              left: "50%",
-              transform: "translate(-50%, -50%)",
-              backgroundColor: "white",
-              padding: "20px",
-              borderRadius: "8px",
-              boxShadow: "0 0 10px rgba(0,0,0,0.5)",
-              zIndex: 1000,
-              width: "300px",
-            }}
-          >
-            <h3>{selectedMedicine.name}</h3>
-            <p>Category: {selectedMedicine.category}</p>
-            <label>When to Take:</label>
-            <div>
-              {options.map((option, idx) => (
-                <div key={idx}>
-                  <input
-                    type="checkbox"
-                    id={`when-${idx}`}
-                    value={option}
-                    checked={popupData.whenToTake.includes(option)}
-                    onChange={(e) => {
-                      const value = e.target.value;
-                      const updatedSelection = e.target.checked
-                        ? [...popupData.whenToTake, value]
-                        : popupData.whenToTake.filter((opt) => opt !== value);
-                      handlePopupChange("whenToTake", updatedSelection);
-                    }}
-                  />
-                  <label htmlFor={`when-${idx}`}>{option}</label>
-                </div>
-              ))}
-            </div>
-  
-            <label>Till When (Days):</label>
-            <input
-              type="number"
-              min="1"
-              value={popupData.tillWhen}
-              onChange={(e) => handlePopupChange("tillWhen", e.target.value)}
-              style={{ width: "100%", marginBottom: "10px" }}
-            />
-  
-            <label>Highlights (Optional):</label>
-            <textarea
-              rows="3"
-              value={popupData.highlights}
-              onChange={(e) => handlePopupChange("highlights", e.target.value)}
-              style={{ width: "100%" }}
-            ></textarea>
-  
-            <div style={{ marginTop: "10px", textAlign: "right" }}>
-              <button onClick={() => setSelectedMedicine(null)}>Cancel</button>
-              <button
-                onClick={handleSubmit}
-                style={{ marginLeft: "10px", backgroundColor: "green", color: "white" }}
-              >
-                Submit
-              </button>
-            </div>
-          </div>
-        )}
-
-<button type="submit" className="theme-btn btn-one" onClick={updateMedicines}><span>Update Medicines Record</span></button>
-      </div>
-    );
-  }
-  
-
-
+ 
 export default function Home() {
 
     //Doctor MetaMask and Web3 Methods
@@ -341,33 +121,33 @@ export default function Home() {
 
     //function to get file links from Pinata 
     const handleRetrieve = async (cid, index) => {
-    if (!cid) return;
+        if (!cid) return;
 
-    try {
-      setLoading((prev) => {
-        const updatedLoading = [...prev];
-        updatedLoading[index] = true;  // Set loading state for the current record
-        return updatedLoading;
-      });
+        try {
+          setLoading((prev) => {
+            const updatedLoading = [...prev];
+            updatedLoading[index] = true;  // Set loading state for the current record
+            return updatedLoading;
+          });
 
-      const url = await retrieveFileWithSignedURL(cid);
+          const url = await retrieveFileWithSignedURL(cid);
 
-      setFileUrls((prev) => {
-        const updatedUrls = [...prev];
-        updatedUrls[index] = url;  // Store retrieved URL in the corresponding index
-        return updatedUrls;
-      });
+          setFileUrls((prev) => {
+            const updatedUrls = [...prev];
+            updatedUrls[index] = url;  // Store retrieved URL in the corresponding index
+            return updatedUrls;
+          });
 
-    } catch (error) {
-      console.error("Error retrieving file:", error);
-    } finally {
-      setLoading((prev) => {
-        const updatedLoading = [...prev];
-        updatedLoading[index] = false;  // Set loading state to false after fetching
-        return updatedLoading;
-      });
+        } catch (error) {
+          console.error("Error retrieving file:", error);
+        } finally {
+          setLoading((prev) => {
+            const updatedLoading = [...prev];
+            updatedLoading[index] = false;  // Set loading state to false after fetching
+            return updatedLoading;
+          });
 
-    }
+        }
     };
 
 
@@ -418,6 +198,110 @@ export default function Home() {
         console.error("Error updating medical record:", error);
         }
     };
+
+
+    //Medicine Details
+    const [selectedMedicine, setSelectedMedicine] = useState(null);
+    const [selectedMedicines, setSelectedMedicines] = useState([]);
+    const [summary, setSummary] = useState("NO Summary");
+    
+    //make a date react state and intitialize it with current date
+    const [date, setDate] = useState(new Date());
+    const [Symptoms, setSymptoms] = useState("NO Symptoms");
+    const [highlights, setHighlights] = useState("NO Highlights");
+    const [subject, setSubject] = useState("NO Subject");
+
+
+
+
+
+    const [popupData, setPopupData] = useState({
+      whenToTake: [],
+      tillWhen: "",
+      highlights: "",
+    });
+    const [searchQuery, setSearchQuery] = useState("");
+    const options = [
+      "After Dinner",
+      "Before Dinner",
+      "After Lunch",
+      "Before Breakfast",
+      "Before Sleep",
+      "Once in a Day Anytime",
+    ];
+  
+    const openPopup = (medicine) => {
+      setSelectedMedicine(medicine);
+      setPopupData({ whenToTake: [], tillWhen: "", highlights: "" });
+    };
+  
+    const handlePopupChange = (key, value) => {
+      if (key === "whenToTake") {
+        setPopupData((prev) => ({
+          ...prev,
+          [key]: value.includes("None")
+            ? ["None"]
+            : value.filter((option) => option !== "None"),
+        }));
+      } else {
+        setPopupData((prev) => ({ ...prev, [key]: value }));
+      }
+    };
+  
+    const handleSubmit = () => {
+      const newEntry = {
+        ...selectedMedicine,
+        ...popupData,
+      };
+      setSelectedMedicines((prev) => [...prev, newEntry]);
+      setSelectedMedicine(null); // Close the popup
+    };
+  
+    // Filter medicines based on search query
+    const filteredMedicines = medicines.filter((medicine) =>
+      medicine.name.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+
+
+
+    async function updateMedicines() {
+      //console.log("Selected Medicines: ", selectedMedicines);
+      //make a new component with the selected medicines and add summary date Symtopms and subject and highlights to it 
+      const medical_Report = {
+        summary: summary,
+        date: date,
+        symptoms: Symptoms,
+        subject: subject,
+        highlights: highlights,
+        medicines: selectedMedicines,
+      }
+      console.log("MedicalReport  ", medical_Report);
+
+      //pinata upload 
+      const response = await uploadMedicines(medical_Report);
+      console.log("Response from uploadMedicines : ",response.data.cid);
+      console.log("Medicine Report CID: ", response.data.cid);
+
+      //blockchain update
+      try {
+        if (!patient || !response.data.cid) {
+          console.error("No patient selected or medicines selected.");
+          alert("Please select a patient and medicines to update");
+          return;
+        }
+        const updatedMedicines = await updateRecordByDoctor(patient.publicAddress, response.data.cid);
+        console.log("Updated medicines:", updatedMedicines);
+      }
+      catch (error) {
+        console.error("Error updating medicines:", error);
+      }
+        
+    }
+
+
+
+
+
 
     return (
         <>
@@ -512,19 +396,19 @@ export default function Home() {
                                             <form method="post" action="team-details" className="default-form">
                                                 <div className="row clearfix">
                                                     <div className="col-lg-6 col-md-6 col-sm-12 form-group">
-                                                        <input type="text" name="fname" placeholder="Symptoms" required />
+                                                        <input type="text" name="fname" placeholder="Symptoms" onChange={(e) => setSymptoms(e.target.value)} required />
                                                     </div>
                                                     <div className="col-lg-6 col-md-6 col-sm-12 form-group">
-                                                        <input type="text" name="phone" placeholder="Referral" required />
+                                                        <input type="date" name="date" placeholder="Date" onChange={(e) => setDate(e.target.value)} required  />
                                                     </div>
                                                     <div className="col-lg-6 col-md-6 col-sm-12 form-group">
-                                                        <input type="email" name="email" placeholder="Summary" required />
+                                                        <input type="text" name="summary" placeholder="Summary"  onChange={(e) => setSummary(e.target.value)} required />
                                                     </div>
                                                     <div className="col-lg-6 col-md-6 col-sm-12 form-group">
-                                                        <input type="text" name="subject" placeholder="Subject" required />
+                                                        <input type="text" name="subject" placeholder="Subject" onChange={(e) => setSubject(e.target.value)} required />
                                                     </div>
                                                     <div className="col-lg-12 col-md-12 col-sm-12 form-group">
-                                                        <textarea name="message" placeholder="Highlights"></textarea>
+                                                        <textarea name="message" placeholder="Highlights" onChange={(e) => setHighlights(e.target.value)} ></textarea>
                                                     </div>
                                                     <div className="col-lg-12 col-md-12 col-sm-12 form-group message-btn">
                                                         <button type="submit" className="theme-btn btn-one"><span>Send Message</span></button>
@@ -536,7 +420,156 @@ export default function Home() {
                                 </div>
                             </div>
 
-                            <MedicineCards patient={patient} />
+                            <div>
+                              <h2>Medicine List</h2>
+                        
+                              {/* Search Input */}
+                              <input
+                                type="text"
+                                placeholder="Search by medicine name..."
+                                value={searchQuery}
+                                onChange={(e) => setSearchQuery(e.target.value)}
+                                
+                              />
+                        
+                              <section className="team-section sec-pad-2 centred">
+                                <div className="auto-container">
+                                  <div className="row clearfix">
+                                    {filteredMedicines.map((medicine, index) => (
+                                      <div
+                                        key={index}
+                                        className="col-lg-3 col-md-6 col-sm-12 team-block"
+                                        onClick={() => openPopup(medicine)}
+                                      >
+                                        <div
+                                          className="team-block-one wow fadeInUp animated"
+                                          data-wow-delay={`${index * 200}ms`}
+                                          data-wow-duration="1500ms"
+                                        >
+                                          <div className="inner-box">
+                                            <div className="image-box">
+                                              <figure className="image">
+                                                <img
+                                                  style={{
+                                                    width: "287px",
+                                                    height: "220px",
+                                                    overflow: "hidden",
+                                                  }}
+                                                  src={medicine.img}
+                                                  alt={medicine.name}
+                                                />
+                                              </figure>
+                                            </div>
+                                            <div className="lower-content">
+                                              <h3>
+                                                <a href="#">{medicine.name}</a>
+                                              </h3>
+                                              <span className="designation">{medicine.category}</span>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    ))}
+                                  </div>
+                                  {filteredMedicines.length === 0 && (
+                                    <p style={{ textAlign: "center", marginTop: "20px" }}>
+                                      No medicines found for "{searchQuery}"
+                                    </p>
+                                  )}
+                                </div>
+                              </section>
+                        
+                              {/* Selected Medicines */}
+                              {selectedMedicines.length > 0 && (
+                                <div>
+                                  <h2>Selected Medicines</h2>
+                                  <ul>
+                                    {selectedMedicines.map((med, idx) => (
+                                      <li key={idx}>
+                                        <strong>{med.name}</strong> - {med.category}
+                                        <br />
+                                        When to Take: {med.whenToTake.join(", ")}
+                                        <br />
+                                        Till When: {med.tillWhen} days
+                                        <br />
+                                        Highlights: {med.highlights || "None"}
+                                      </li>
+                                    ))}
+                                  </ul>
+                                </div>
+                              )}
+                        
+                              {/* Popup for Medicine Details */}
+                              {selectedMedicine && (
+                                <div
+                                  style={{
+                                    position: "fixed",
+                                    top: "50%",
+                                    left: "50%",
+                                    transform: "translate(-50%, -50%)",
+                                    backgroundColor: "white",
+                                    padding: "20px",
+                                    borderRadius: "8px",
+                                    boxShadow: "0 0 10px rgba(0,0,0,0.5)",
+                                    zIndex: 1000,
+                                    width: "300px",
+                                  }}
+                                >
+                                  <h3>{selectedMedicine.name}</h3>
+                                  <p>Category: {selectedMedicine.category}</p>
+                                  <label>When to Take:</label>
+                                  <div>
+                                    {options.map((option, idx) => (
+                                      <div key={idx}>
+                                        <input
+                                          type="checkbox"
+                                          id={`when-${idx}`}
+                                          value={option}
+                                          checked={popupData.whenToTake.includes(option)}
+                                          onChange={(e) => {
+                                            const value = e.target.value;
+                                            const updatedSelection = e.target.checked
+                                              ? [...popupData.whenToTake, value]
+                                              : popupData.whenToTake.filter((opt) => opt !== value);
+                                            handlePopupChange("whenToTake", updatedSelection);
+                                          }}
+                                        />
+                                        <label htmlFor={`when-${idx}`}>{option}</label>
+                                      </div>
+                                    ))}
+                                  </div>
+                        
+                                  <label>Till When (Days):</label>
+                                  <input
+                                    type="number"
+                                    min="1"
+                                    value={popupData.tillWhen}
+                                    onChange={(e) => handlePopupChange("tillWhen", e.target.value)}
+                                    style={{ width: "100%", marginBottom: "10px" }}
+                                  />
+                        
+                                  <label>Highlights (Optional):</label>
+                                  <textarea
+                                    rows="3"
+                                    value={popupData.highlights}
+                                    onChange={(e) => handlePopupChange("highlights", e.target.value)}
+                                    style={{ width: "100%" }}
+                                  ></textarea>
+                        
+                                  <div style={{ marginTop: "10px", textAlign: "right" }}>
+                                    <button onClick={() => setSelectedMedicine(null)}>Cancel</button>
+                                    <button
+                                      onClick={handleSubmit}
+                                      style={{ marginLeft: "10px", backgroundColor: "green", color: "white" }}
+                                    >
+                                      Submit
+                                    </button>
+                                  </div>
+                                </div>
+                              )}
+
+                              <button type="submit" className="theme-btn btn-one" onClick={updateMedicines}><span>Update Medicines Record</span></button>
+                            </div>
 
 
                         </>
