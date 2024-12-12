@@ -1,50 +1,79 @@
+"use client"
 import Layout from "@/components/layout/Layout";
 import Link from "next/link";
+import { useEffect,useState } from "react";
+import axios from "axios";
 
+import usePatients from "../../components/hooks/patient.zustand"
 export default function Home() {
     // JSON array of team members
-    const teamMembers = [
+
+    const [allPatients, setAllPatients] = useState([
         {
             name: "Black Marvin",
-            specialist: "Medical Assistant",
+            aadhar: "Medical Assistant",
             image: "assets/images/team/team-1.jpg",
         },
         {
             name: "Eleanor Pena",
-            specialist: "Doctor",
+            aadhar: "Doctor",
             image: "assets/images/team/team-2.jpg",
         },
         {
             name: "Arlene Maccy",
-            specialist: "Nursing Assistant",
+            aadhar: "Nursing Assistant",
             image: "assets/images/team/team-3.jpg",
         },
         {
             name: "Jenny Wilson",
-            specialist: "Senior Doctor",
+            aadhar: "Senior Doctor",
             image: "assets/images/team/team-4.jpg",
         },
         {
             name: "Jerome Bell",
-            specialist: "Cardiologist",
+            aadhar: "Cardiologist",
             image: "assets/images/team/team-9.jpg",
         },
         {
             name: "Guy Hawkins",
-            specialist: "Pathologist",
+            aadhar: "Pathologist",
             image: "assets/images/team/team-10.jpg",
         },
         {
             name: "Courtney Henry",
-            specialist: "Pathologist",
+            aadhar: "Pathologist",
             image: "assets/images/team/team-11.jpg",
         },
         {
             name: "Ralph Edwards",
-            specialist: "Ophthalmologist",
+            aadhar: "Ophthalmologist",
             image: "assets/images/team/team-12.jpg",
         },
-    ];
+    ]);
+
+    const addPatient = usePatients((state)=>state.addPatient);
+    
+
+    useEffect(() => {
+        const fetchPatients = async () => {
+            try {
+                const response = await axios.get("http://localhost:8000/getAllPatients");
+                console.log("Fetched Patients:", response.data);
+                setAllPatients(response.data);
+                
+            } catch (error) {
+                console.error("Error fetching patients:", error);
+            }
+        };
+
+        fetchPatients();
+    }, []);
+
+
+    async function setPatient(member){
+        await addPatient(member); //setting patient to Zustand state
+        console.log("Patient Added:", member);
+    }
 
     return (
         <>
@@ -53,7 +82,7 @@ export default function Home() {
                     <section className="team-section sec-pad-2 centred">
                         <div className="auto-container">
                             <div className="row clearfix">
-                                {teamMembers.map((member, index) => (
+                                {allPatients.map((member, index) => (
                                     <div
                                         key={index}
                                         className="col-lg-3 col-md-6 col-sm-12 team-block"
@@ -67,11 +96,16 @@ export default function Home() {
                                                 <div className="image-box">
                                                     <figure className="image">
                                                         <img
+                                                            style={{
+                                                                width: "287px",
+                                                                height: "220px",
+                                                                overflow: "hidden", // Ensures no content spills outside
+                                                            }} 
                                                             src={member.image}
                                                             alt={member.name}
                                                         />
                                                     </figure>
-                                                    <ul className="social-links clearfix">
+                                                    {/* <ul className="social-links clearfix">
                                                         <li>
                                                             <Link href="/">
                                                                 <i className="icon-4"></i>
@@ -92,16 +126,18 @@ export default function Home() {
                                                                 <i className="icon-7"></i>
                                                             </Link>
                                                         </li>
-                                                    </ul>
+                                                    </ul> */}
                                                 </div>
                                                 <div className="lower-content">
                                                     <h3>
-                                                        <Link href="team-details">
+                                                        <Link href="team-details" onClick={()=>{
+                                                            setPatient(member);
+                                                        }}>
                                                             {member.name}
                                                         </Link>
                                                     </h3>
                                                     <span className="designation">
-                                                        {member.specialist}
+                                                        Adhar: {member.aadhar}
                                                     </span>
                                                 </div>
                                             </div>

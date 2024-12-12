@@ -59,7 +59,38 @@ app.post('/createRecord/:publicAddress', async (req, res) => {
 });
 
 // API to get a document by Aadhar (which is now the document ID)
-app.get('/getRecord/:aadhar', async (req, res) => {
+app.post('/getRecord/:aadhar', async (req, res) => {
+  const { aadhar } = req.params;
+  const { password } = req.body; // Password provided in the request
+
+  try {
+    const docRef = doc(firestore, "patient", aadhar);
+    const snap = await getDoc(docRef);
+
+    if (snap.exists()) {
+      const data = snap.data();
+
+      if (data.password) {
+        const isPasswordMatch = await bcrypt.compare(password, data.password);
+
+        if (isPasswordMatch) {
+          res.status(200).send(data);
+        } else {
+          res.status(401).send({ error: "Password is incorrect" });
+        }
+      } else {
+        res.status(400).send({ error: "No password set for this record" });
+      }
+    } else {
+      res.status(404).send({ error: "Record not found" });
+    }
+  } catch (error) {
+    res.status(500).send({ error: "Error fetching Record: " + error });
+  }
+});
+
+
+app.get('/getRecord/Test/:aadhar', async (req, res) => {
   const { aadhar } = req.params;
   try {
     const docRef = doc(firestore, "patient", aadhar);
@@ -71,6 +102,41 @@ app.get('/getRecord/:aadhar', async (req, res) => {
     }
   } catch (error) {
     res.status(500).send({ error: "Error fetching Record: " + error });
+  }
+});
+
+
+// API to set or update password by public address
+app.get('/getRecord/NewPass/:publicAddress', async (req, res) => {
+  const { publicAddress } = req.params;
+  const { password } = req.body; // New password provided in the request
+
+  try {
+    if (!password) {
+      return res.status(400).send({ error: "Password is required" });
+    }
+
+    // Encrypt the password
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    // Find the patient by public address
+    const collectionRef = collection(firestore, "patient");
+    const q = query(collectionRef, where("publicAddress", "==", publicAddress));
+    const querySnapshot = await getDocs(q);
+
+    if (querySnapshot.empty) {
+      return res.status(404).send({ error: "No patient found with the provided public address" });
+    }
+
+    // Update the password for the found patient
+    querySnapshot.forEach(async (doc) => {
+      const docRef = doc.ref;
+      await updateDoc(docRef, { password: hashedPassword });
+    });
+
+    res.status(200).send({ message: "Password set/updated successfully" });
+  } catch (error) {
+    res.status(500).send({ error: "Error updating password: " + error });
   }
 });
 
@@ -92,7 +158,6 @@ app.put('/updateRecord/:aadhar', async (req, res) => {
       res.status(500).send({ error: "Error updating Record: " + error });
     }
   });
-  
 
 // API to delete a document by Aadhar (document ID)
 app.delete('/deleteRecord/:aadhar', async (req, res) => {
@@ -155,3 +220,5 @@ app.get('/getAllPatients',async (req,res)=>{
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
+
+

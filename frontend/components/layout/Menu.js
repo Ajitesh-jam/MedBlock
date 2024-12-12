@@ -38,7 +38,9 @@ export default function Menu() {
                             <ul>
                                 <li><Link href="/team">Our Team</Link></li>
                                 <li><Link href="/team-details">Team Details</Link></li>
-                                <li><Link href="/Doctors">Doctors</Link></li>
+                                <li><Link href="/doctors">Doctors</Link></li>
+                                <li><Link href="/patient-signup">Patient SignUp</Link></li>
+                                <li><Link href="/patient-login">Patient Login</Link></li>
                             </ul>
                         </li>
                 {/* Pages */}
