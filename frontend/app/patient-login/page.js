@@ -5,6 +5,9 @@ import usePatients from "@/components/hooks/patient.zustand"
 import axios from "axios";
 import { useState } from "react";
 
+//import router
+import { useRouter } from "next/navigation";
+
 export default function Home() {
 
     const patients = usePatients((state) => state.setNewPatient);
@@ -12,14 +15,20 @@ export default function Home() {
     const [aadhar,setAdhar] = useState(); 
     const [password,setPassword] = useState(); 
 
+    //router to navigate
+    const router = useRouter();
+
     async function login() {
         console.log("Login called");
         try {
-            const response = await axios.get(`http://localhost:8000/Test/${aadhar}`);
+            
+            const response = await axios.get(`http://localhost:8000/getRecord/${aadhar}/${password}`);
             if (response.status === 200) {
-                //patients(response.data); // Update patient data in Zustand
+                patients(response.data); // Update patient data in Zustand
                 console.log("Successfully logged in as : ",response.data);
-                //navigate("/patient"); // Navigate to patient page
+
+                //naviagte to /patinet
+                router.push("/patient");
             }
         } catch (error) {
             //Handle specific error cases
@@ -33,6 +42,7 @@ export default function Home() {
                 }
             } else {
                 alert("Network error. Please try again later.");
+                console.log("error: ",error);
             }
         }
     }

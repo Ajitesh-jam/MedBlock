@@ -1,5 +1,5 @@
 const express = require('express');
-const axios = require('axios');
+
 const cors = require('cors'); // Import the CORS package
 const { initializeApp } = require("firebase/app");
 const { getFirestore, collection, doc, setDoc, getDoc, query, where, getDocs, updateDoc, deleteDoc } = require("firebase/firestore");
@@ -9,7 +9,7 @@ const port = 8000;
 
 app.use(cors()); // Enable CORS for all routes
 app.use(express.json()); // To handle JSON requests
-
+const bcrypt = require('bcrypt'); // Import bcrypt for password encryption
 // Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyCpOT2KxA0FqWUnZnNZeILITRXXeBIeipE",
@@ -59,9 +59,11 @@ app.post('/createRecord/:publicAddress', async (req, res) => {
 });
 
 // API to get a document by Aadhar (which is now the document ID)
-app.post('/getRecord/:aadhar', async (req, res) => {
+app.get('/getRecord/:aadhar/:password', async (req, res) => {
   const { aadhar } = req.params;
-  const { password } = req.body; // Password provided in the request
+  const { password } = req.params; // Password provided in the request
+
+  console.log("Getting ",aadhar, " records from ",password);
 
   try {
     const docRef = doc(firestore, "patient", aadhar);
@@ -222,3 +224,32 @@ app.listen(port, () => {
 });
 
 
+
+// const axios = require('axios');
+ 
+// async function setNewPassword(publicAddress, newPassword) {
+//     try {
+//         const response = await axios.get(`http://localhost:8000/getRecord/NewPass/${publicAddress}`, {
+//             data: { password: newPassword },
+//         });
+
+//         if (response.status === 200) {
+//             console.log(`Password updated successfully for address: ${publicAddress}`);
+//         } else {
+//             console.error(`Failed to update password for address: ${publicAddress}`);
+//         }
+//     } catch (error) {
+//         console.error(`Error updating password for ${publicAddress}:`, error.response?.data || error.message);
+//     }
+// }
+
+// // Example usage
+// const publicAddresses = [
+//     '0x3a94bD23Eb39cd8083A31C0e802F7f724e95b6c2',
+//     '0x1625E307538AF371F7e0B176318678De7f9C0F27',
+//     '0xB6659c4B889fD48A9fa134bAB01Ce3fc25c2A3b8',
+// ];
+
+// const newPassword = 'SecureNewPassword123'; // Replace with your desired password
+
+// publicAddresses.forEach((address) => setNewPassword(address, newPassword));
