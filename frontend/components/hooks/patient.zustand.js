@@ -17,21 +17,6 @@ const initialState = {
 };
 
 
-//Patient arguments
-
-//name
-//DOB
-//Image Url
-//email
-//publicAddress
-//contact
-//gender
-//Adhar
-
-
-
-
-
 // Create the Zustand store for patient management
 const usePatients = create((set) => ({
     ...initialState,
