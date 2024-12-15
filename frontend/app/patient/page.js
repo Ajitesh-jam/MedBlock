@@ -1,4 +1,4 @@
-
+{
 // 'use client'
 // import Layout from "@/components/layout/Layout"
 // import Link from "next/link"
@@ -299,9 +299,7 @@
 //         </>
 //     )
 // }
-
-
-
+}
 
 'use client'
 import Layout from "@/components/layout/Layout"
