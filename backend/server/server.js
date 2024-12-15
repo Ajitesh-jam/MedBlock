@@ -28,33 +28,31 @@ const firestore = getFirestore(firebaseApp);
 // API to create a new record using Aadhar as the document ID
 app.post('/createRecord/:publicAddress', async (req, res) => {
   const { 
-    name,
-    phone,
-    DOB,
-    aadhar,
-    gender, 
-    email, 
-    password,
-    image, 
+        _publicAddress, 
+        _name,
+        _DOB, 
+        _url, 
+        _email, 
+        _control, 
+        _gender, 
+        _aadhar,
+        _patientId 
     } = req.body;
-    //console.log(JSON.stringify(req.body));
-    //console.log("arguments ",fname,phone,DOB,aadhar,gender,email,password,confirmPassword,image);
     const publicAddress = req.params.publicAddress;
    try {
     // Use setDoc with the Aadhar number as the document ID
-    await setDoc(doc(firestore, "patient", aadhar), {
+    await setDoc(doc(firestore, "patient", _aadhar), {
       publicAddress: publicAddress,
-      name:name,
-      phone:phone,
-      DOB:DOB,
-      aadhar:aadhar,
-      gender:gender, 
-      email:email, 
-      password:password,
-      image:image,
-      
+      name: _name,
+      DOB: _DOB,
+      url: _url,
+      email: _email,
+      control: _control,
+      gender: _gender,
+      aadhar: _aadhar,
+      patientId: _patientId
     });
-    res.status(200).send({ message: "Medical Report written with Aadhar ID: " + aadhar });
+    res.status(200).send({ message: "Medical Report written with Aadhar ID: " + _aadhar });
   } catch (error) {
     res.status(500).send({ error: "Error adding Record: " + error });
   }
@@ -220,32 +218,10 @@ app.get('/getAllPatients',async (req,res)=>{
   }
 })
 
-app.get('/pinataContent',async (req,res)=> {
-  const { url } = req.query;
-
-  try {
-      const response = await fetch(url);
-      const contentType = response.headers.get("Content-Type");
-
-      if (contentType?.includes("application/json")) {
-          const data = await response.json();
-          res.status(200).json({ data, contentType });
-      } else {
-          const data = await response.text(); // Handle non-JSON data
-          res.status(200).json({ data, contentType });
-      }
-  } catch (error) {
-      res.status(500).json({ error: "Failed to fetch data." });
-  }
-});
-
-
 // Start the server
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
-
-
 
 
 

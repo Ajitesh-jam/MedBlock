@@ -74,7 +74,6 @@ export default function Home() {
                                                     
                                                 </div>
                                                 <button type="submit" className="theme-btn btn-one" onClick={login}><span>Login </span></button>
-                                                Don't have an account? <Link href="/patient-signup">Register</Link>
                                         </>
 
 
