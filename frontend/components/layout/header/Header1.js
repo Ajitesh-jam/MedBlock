@@ -8,7 +8,7 @@ export default function Header1({ scroll, isMobileMenu, handleMobileMenu, isSide
         <>
             <header className={`main-header ${scroll ? "fixed-header" : ""}`}>
                 {/* Header Top */}
-                {/* <div className="header-top">
+                <div className="header-top">
       <div className="auto-container">
         <div className="top-inner">
           <ul className="info-list clearfix">
@@ -16,10 +16,10 @@ export default function Header1({ scroll, isMobileMenu, handleMobileMenu, isSide
               <i className="icon-1"></i>Mon - Fri 8:00 - 18:00 / Sunday 8:00 - 14:00
             </li>
             <li>
-              <i className="icon-2"></i>Email: <Link href="tel:01989526503">0198-9526503</Link>
+              <i className="icon-2"></i>Phone: <Link href="tel:01989526503">0198-9526503</Link>
             </li>
             <li>
-              <img src="assets/images/icons/icon-1.png" alt="" /> 47 Bakery Street, London, UK
+              <img src="assets/images/icons/icon-1.png" alt="" />IIT Kharagpur
             </li>
           </ul>
           <ul className="social-links clearfix">
@@ -46,7 +46,7 @@ export default function Header1({ scroll, isMobileMenu, handleMobileMenu, isSide
           </ul>
         </div>
       </div>
-    </div> */}
+    </div>
                    
                 {/* Header Upper */}
                 <div className="header-lower">

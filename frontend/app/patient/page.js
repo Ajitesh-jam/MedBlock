@@ -1,4 +1,3 @@
-
 // 'use client'
 // import Layout from "@/components/layout/Layout"
 // import Link from "next/link"
@@ -7,6 +6,7 @@
 // import usePatients from "@/components/hooks/patient.zustand"
 // import { useEffect } from "react";
 // import { retrieveFileWithSignedURL } from '@/components/utils/pinata.js';
+
 // export default function service() {
 //     const [isActive, setIsActive] = useState({
 //         status: false,
@@ -28,7 +28,6 @@
 
 //     const patient = usePatients((state)=> state.selectedPatient);
 
-
 //     //Medical Record
 //     const [medicalRecords, setMedicalRecords] = useState([
 //         {
@@ -38,6 +37,8 @@
     
 //     const [fileUrls, setFileUrls] = useState([]); // Array to store URLs for each record
 //     const [loading, setLoading] = useState([]);    // Array to track loading states for each record
+//     const [currentUrlIndex, setCurrentUrlIndex] = useState(0); // State to track the current URL being displayed
+
 //     // Function to get a medical record using the Web3 contract
 //     const handleGetMedicalRecord = async (publicAddress) => {
 //         console.log("Handle get Medical Record with public Address : ",publicAddress);
@@ -72,6 +73,16 @@
 //         }
 //     }, [medicalRecords]);
 
+
+//     const fetchData = async (cid) => {////////////////////////////////To change this
+//         console.log("FETCHING DATA FOR CID:", cid);
+//         const url = await retrieveFileWithSignedURL(cid);
+//         const apiResponse = await fetch(`http://localhost:8000/pinataContent?url=${url}`);
+//         const { data, contentType } = await apiResponse.json();
+//         console.log("Fetched data:", data, "Content-Type:", contentType);
+//     };
+    
+
 //     //function to get file links from Pinata 
 //     const handleRetrieve = async (cid, index) => {
 //         if (!cid) return;
@@ -83,6 +94,14 @@
 //             return updatedLoading;
 //             });
 //             const url = await retrieveFileWithSignedURL(cid);
+//             fetchData(cid);////////////////////////////////To change this
+
+
+//             //create a get request of the url and console log out
+//             //const response = await fetch(url);//, headers: {   "Accept": "application/json" }
+//             // const data = await response.json();
+//             // console.log("Data from the URL : ",data);
+            
 //             setFileUrls((prev) => {
 //             const updatedUrls = [...prev];
 //             updatedUrls[index] = url;  // Store retrieved URL in the corresponding index
@@ -100,6 +119,66 @@
 
 //         }
 //     };
+
+
+
+//     // const handleRetrieve = async (cid, index) => {
+//     //     if (!cid) return;
+    
+//     //     try {
+//     //         setLoading((prev) => {
+//     //             const updatedLoading = [...prev];
+//     //             updatedLoading[index] = true; // Set loading state for the current record
+//     //             return updatedLoading;
+//     //         });
+    
+//     //         const url = await retrieveFileWithSignedURL(cid);
+    
+//     //         // Fetch the file to determine its content
+//     //         const proxyUrl = "https://cors-anywhere.herokuapp.com/"; // Or your proxy URL
+//     //         const finalUrl = proxyUrl + url;
+//     //         const response = await fetch(finalUrl, { mode: "cors" }); // Use 'cors' mode
+//     //         if (!response.ok) throw new Error(`Failed to fetch resource. Status: ${response.status}`);
+    
+//     //         const contentType = response.headers.get("Content-Type"); // Case-sensitive
+//     //         console.log("Content-Type Header: ", contentType);
+    
+//     //         if (contentType && contentType.includes("application/json")) {
+//     //             const jsonData = await response.json();
+//     //             console.log("This is a JSON document:", jsonData);
+    
+//     //             // Store the JSON data
+//     //             setFileUrls((prev) => {
+//     //                 const updatedUrls = [...prev];
+//     //                 updatedUrls[index] = jsonData; // Store JSON data directly
+//     //                 return updatedUrls;
+//     //             });
+//     //         } else if (contentType && contentType.startsWith("image/")) {
+//     //             console.log(`This is an image. URL: ${url}`);
+//     //             setFileUrls((prev) => {
+//     //                 const updatedUrls = [...prev];
+//     //                 updatedUrls[index] = url; // Store the image URL
+//     //                 return updatedUrls;
+//     //             });
+//     //         } else {
+//     //             console.log(`Unhandled content type. URL: ${url}`);
+//     //             setFileUrls((prev) => {
+//     //                 const updatedUrls = [...prev];
+//     //                 updatedUrls[index] = "Unsupported content type";
+//     //                 return updatedUrls;
+//     //             });
+//     //         }
+//     //     } catch (error) {
+//     //         console.error("Error retrieving file:", error);
+//     //     } finally {
+//     //         setLoading((prev) => {
+//     //             const updatedLoading = [...prev];
+//     //             updatedLoading[index] = false; // Set loading state to false after fetching
+//     //             return updatedLoading;
+//     //         });
+//     //     }
+//     // };
+    
 
 //     //by useeffect call the handleGetMedicalRecord for only once
 //     useEffect(() => {
@@ -149,7 +228,13 @@
 //                                             <div key={index}>
 
 //                                                 {fileUrls[index] ? (
-//                                                     <li><Link href={fileUrls[index]} target="_blank" >Record {index + 1}</Link></li> //target=blank link in new tab                                            
+//                                                     <li><a 
+                                                        
+//                                                         className={currentUrlIndex === index ? "current" : ""}
+//                                                         onClick={() => setCurrentUrlIndex(index)}
+//                                                     >
+//                                                         Record {index + 1}
+//                                                     </a></li>                                           
 //                                                 ) : (
 //                                                 <span className="loading-animation">Fetching record...</span>
 //                                                 )}
@@ -171,11 +256,16 @@
 //                         <div className="service-details-content">
 
 //                             <div className="content-one mb_60">
-//                                 {/* <figure className="image-box mb_40"><img src="assets/images/service/service-7.jpg" alt="" /></figure> */}
 //                                 <div className="text-box">
-//                                     <h2>Cardiology</h2>
-//                                     <p>Quam arcu pretium quis quam sed, laorey afficits volutpat lobortis sem consq consequat lore dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut laboret dol aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip exac consequat. Duis aute irure dolor in reprehenderit in voluptate.</p>
-//                                     <p>Velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proide in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis isten sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque.</p>
+//                                     <h2>Medical Record Image</h2>
+//                                     {fileUrls[currentUrlIndex] ? (
+//                                         <>
+//                                         <figure className="image-box mb_40"><img src={fileUrls[currentUrlIndex]} alt="Record" /></figure>
+//                                         {fileUrls[currentUrlIndex]}
+//                                         </>
+//                                     ) : (
+//                                         <p>Loading image...</p>
+//                                     )}
 //                                 </div>
 //                             </div>
 //                             <div className="content-two">
@@ -200,28 +290,7 @@
 //                                                 </div>
 //                                             </div>
 //                                         </div>
-
-//                                 <div className="col-lg-4 col-md-6 col-sm-12 news-block">
-//                                     <div className="news-block-one wow fadeInUp animated" data-wow-delay="00ms" data-wow-duration="1500ms">
-//                                         <div className="inner-box">
-//                                             <figure className="image-box"><Link href="blog-details"><img src="assets/images/news/news-1.jpg" alt="" /></Link></figure>
-//                                             <div className="lower-content">
-//                                                 <ul className="post-info mb_15 clearfix">
-//                                                     <li><Link href="blog-details">Admin</Link></li>
-//                                                     <li>12 Jan 2022</li>
-//                                                     <li>03 Comt</li>
-//                                                 </ul>
-//                                                 <h3><Link href="blog-details">How do Inherited Retinal of Diseases Happen?</Link></h3>
-//                                                 <p>Tincidunt Maur nemi sit Interdum praesento eget morbi lacinia volutpat pellentesque Tincidunt aurna suspit.</p>
-//                                                 <div className="link">
-//                                                     <Link href="blog-details"><span>Read More</span></Link>
-//                                                 </div>
-//                                             </div>
-//                                         </div>
-//                                     </div>
-//                                 </div>
-
-//                                 <div className="col-lg-4 col-md-6 col-sm-12 news-block">
+//                                         <div className="col-lg-4 col-md-6 col-sm-12 news-block">
 //                                     <div className="news-block-one wow fadeInUp animated" data-wow-delay="00ms" data-wow-duration="1500ms">
 //                                         <div className="inner-box">
 //                                             <figure className="image-box"><Link href="blog-details"><img src="assets/images/news/news-1.jpg" alt="" /></Link></figure>
@@ -300,9 +369,6 @@
 //     )
 // }
 
-
-
-
 'use client'
 import Layout from "@/components/layout/Layout"
 import Link from "next/link"
@@ -378,6 +444,16 @@ export default function service() {
         }
     }, [medicalRecords]);
 
+
+    const fetchData = async (cid) => {////////////////////////////////To change this
+        console.log("FETCHING DATA FOR CID:", cid);
+        const url = await retrieveFileWithSignedURL(cid);
+        const apiResponse = await fetch(`http://localhost:8000/pinataContent?url=${url}`);
+        const { data, contentType } = await apiResponse.json();
+        console.log("Fetched data:", data, "Content-Type:", contentType);
+    };
+    
+
     //function to get file links from Pinata 
     const handleRetrieve = async (cid, index) => {
         if (!cid) return;
@@ -389,6 +465,14 @@ export default function service() {
             return updatedLoading;
             });
             const url = await retrieveFileWithSignedURL(cid);
+            fetchData(cid);////////////////////////////////To change this
+
+
+            //create a get request of the url and console log out
+            //const response = await fetch(url);//, headers: {   "Accept": "application/json" }
+            // const data = await response.json();
+            // console.log("Data from the URL : ",data);
+            
             setFileUrls((prev) => {
             const updatedUrls = [...prev];
             updatedUrls[index] = url;  // Store retrieved URL in the corresponding index
@@ -407,6 +491,66 @@ export default function service() {
         }
     };
 
+
+
+    // const handleRetrieve = async (cid, index) => {
+    //     if (!cid) return;
+    
+    //     try {
+    //         setLoading((prev) => {
+    //             const updatedLoading = [...prev];
+    //             updatedLoading[index] = true; // Set loading state for the current record
+    //             return updatedLoading;
+    //         });
+    
+    //         const url = await retrieveFileWithSignedURL(cid);
+    
+    //         // Fetch the file to determine its content
+    //         const proxyUrl = "https://cors-anywhere.herokuapp.com/"; // Or your proxy URL
+    //         const finalUrl = proxyUrl + url;
+    //         const response = await fetch(finalUrl, { mode: "cors" }); // Use 'cors' mode
+    //         if (!response.ok) throw new Error(`Failed to fetch resource. Status: ${response.status}`);
+    
+    //         const contentType = response.headers.get("Content-Type"); // Case-sensitive
+    //         console.log("Content-Type Header: ", contentType);
+    
+    //         if (contentType && contentType.includes("application/json")) {
+    //             const jsonData = await response.json();
+    //             console.log("This is a JSON document:", jsonData);
+    
+    //             // Store the JSON data
+    //             setFileUrls((prev) => {
+    //                 const updatedUrls = [...prev];
+    //                 updatedUrls[index] = jsonData; // Store JSON data directly
+    //                 return updatedUrls;
+    //             });
+    //         } else if (contentType && contentType.startsWith("image/")) {
+    //             console.log(`This is an image. URL: ${url}`);
+    //             setFileUrls((prev) => {
+    //                 const updatedUrls = [...prev];
+    //                 updatedUrls[index] = url; // Store the image URL
+    //                 return updatedUrls;
+    //             });
+    //         } else {
+    //             console.log(`Unhandled content type. URL: ${url}`);
+    //             setFileUrls((prev) => {
+    //                 const updatedUrls = [...prev];
+    //                 updatedUrls[index] = "Unsupported content type";
+    //                 return updatedUrls;
+    //             });
+    //         }
+    //     } catch (error) {
+    //         console.error("Error retrieving file:", error);
+    //     } finally {
+    //         setLoading((prev) => {
+    //             const updatedLoading = [...prev];
+    //             updatedLoading[index] = false; // Set loading state to false after fetching
+    //             return updatedLoading;
+    //         });
+    //     }
+    // };
+    
+
     //by useeffect call the handleGetMedicalRecord for only once
     useEffect(() => {
         if(medicalRecords.length > 0){
@@ -421,8 +565,8 @@ export default function service() {
             <Layout headerStyle={2} footerStyle={1} breadcrumbTitle="Patient Login">
                 <div>
                 {/* service-section */}
-                <section className="service-details pt_120 pb_110">
-                <div   div className="auto-container">
+                <section className = "service-details pt_120 pb_110">
+                <div className="auto-container">
                     <div className="row clearfix">
                         <div className="col-lg-4 col-md-12 col-sm-12 sidebar-side">
                             <div className="default-sidebar service-sidebar mr_15">
@@ -486,7 +630,10 @@ export default function service() {
                                 <div className="text-box">
                                     <h2>Medical Record Image</h2>
                                     {fileUrls[currentUrlIndex] ? (
+                                        <>
                                         <figure className="image-box mb_40"><img src={fileUrls[currentUrlIndex]} alt="Record" /></figure>
+                                        {fileUrls[currentUrlIndex]}
+                                        </>
                                     ) : (
                                         <p>Loading image...</p>
                                     )}
