@@ -1,7 +1,7 @@
 import Web3 from "web3";
 import medicalRecordsABI from "../contracts/abi.json";
 
-const contractAddress = "0x9768B94a6Bc6687D0229587adceaD04908D73d3f"; 
+const contractAddress = "0xccA081c8989a41a7bE645c4f377d6B3c85d25686"; // Replace with the deployed contract address
 
 // Initialize Web3 and contract
 export function Utils() {

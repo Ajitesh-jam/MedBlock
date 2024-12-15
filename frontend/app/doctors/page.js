@@ -77,7 +77,7 @@ export default function Home() {
 
     return (
         <>
-            <Layout headerStyle={2} footerStyle={1} breadcrumbTitle="Doctor">
+            <Layout headerStyle={2} footerStyle={1} breadcrumbTitle="Team">
                 <div>
                     <section className="team-section sec-pad-2 centred">
                         <div className="auto-container">
