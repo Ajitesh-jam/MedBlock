@@ -34,7 +34,7 @@ export default function Menu() {
                         {/* ... (similarly for other service items) */}
                     </ul>
                 </li>
-                     <li className="dropdown"><Link href="/">Team</Link>
+                     <li className="dropdown"><Link href="/patient-login">Patient</Link>
                             <ul>
                                 <li><Link href="/team">Our Team</Link></li>
                                 <li><Link href="/team-details">Team Details</Link></li>
@@ -44,7 +44,7 @@ export default function Menu() {
                             </ul>
                         </li>
                 {/* Pages */}
-                <li className="dropdown"><Link href="/">Pages</Link>
+                <li className="dropdown"><Link href="/doctors">Doctor</Link>
                     <ul>
                         <li className="dropdown"><Link href="/">Blog</Link>
                             <ul>
