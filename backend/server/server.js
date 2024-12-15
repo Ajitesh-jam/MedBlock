@@ -28,31 +28,33 @@ const firestore = getFirestore(firebaseApp);
 // API to create a new record using Aadhar as the document ID
 app.post('/createRecord/:publicAddress', async (req, res) => {
   const { 
-        _publicAddress, 
-        _name,
-        _DOB, 
-        _url, 
-        _email, 
-        _control, 
-        _gender, 
-        _aadhar,
-        _patientId 
+  
+        name,
+        phone,
+        email,
+        DOB, 
+        aadhar,
+        gender, 
+        password,
+        confirmPassword,
+        image
     } = req.body;
     const publicAddress = req.params.publicAddress;
+    //console.log("Arguments: " + JSON.stringify(req.body));
    try {
     // Use setDoc with the Aadhar number as the document ID
-    await setDoc(doc(firestore, "patient", _aadhar), {
+    await setDoc(doc(firestore, "patient", aadhar), {
       publicAddress: publicAddress,
-      name: _name,
-      DOB: _DOB,
-      url: _url,
-      email: _email,
-      control: _control,
-      gender: _gender,
-      aadhar: _aadhar,
-      patientId: _patientId
+      name:  name,
+      phone: phone,
+      email: email,
+      DOB: DOB,
+      aadhar: aadhar,
+      gender: gender,
+      password: password,
+      image: image,
     });
-    res.status(200).send({ message: "Medical Report written with Aadhar ID: " + _aadhar });
+    res.status(200).send({ message: "Medical Report written with Aadhar ID: " + aadhar });
   } catch (error) {
     res.status(500).send({ error: "Error adding Record: " + error });
   }
