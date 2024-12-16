@@ -8,7 +8,7 @@ export default function Header1({ scroll, isMobileMenu, handleMobileMenu, isSide
         <>
             <header className={`main-header ${scroll ? "fixed-header" : ""}`}>
                 {/* Header Top */}
-                <div className="header-top">
+                {/* <div className="header-top">
       <div className="auto-container">
         <div className="top-inner">
           <ul className="info-list clearfix">
@@ -46,7 +46,7 @@ export default function Header1({ scroll, isMobileMenu, handleMobileMenu, isSide
           </ul>
         </div>
       </div>
-    </div>
+    </div> */}
                    
                 {/* Header Upper */}
                 <div className="header-lower">
@@ -55,7 +55,7 @@ export default function Header1({ scroll, isMobileMenu, handleMobileMenu, isSide
           <div className="outer-box">
             <div className="logo-box">
               <figure className="logo">
-                <Link href="/"><img src="assets/images/logo.png" alt="" /></Link>
+                <Link href="/"><img src="assets/images/logo2.png" alt="" /></Link>
               </figure>
             </div>
             <div className="menu-area">
@@ -71,7 +71,7 @@ export default function Header1({ scroll, isMobileMenu, handleMobileMenu, isSide
               </nav>
             </div>
             <div className="btn-box">
-              <Link href="/" className="theme-btn btn-one"><span>Request A Pickup</span></Link>
+              <Link href="/patient-signup" className="theme-btn btn-one"><span>Sign Up</span></Link>
             </div>
           </div>
         </div>
@@ -83,7 +83,7 @@ export default function Header1({ scroll, isMobileMenu, handleMobileMenu, isSide
                     <div className="auto-container">
                         <div className="outer-box">
                         <div className="logo-box">
-                            <figure className="logo"><Link href="/"><img src="assets/images/logo.png" alt="" /></Link></figure>
+                            <figure className="logo"><Link href="/"><img src="assets/images/logo2.png" alt="" /></Link></figure>
                         </div>
                        
                             <nav className="main-menu navbar-expand-md navbar-light clearfix">
@@ -94,7 +94,7 @@ export default function Header1({ scroll, isMobileMenu, handleMobileMenu, isSide
                             <ul className="menu-right-content">
                           
                             <div className="btn-box">
-                            <Link href="/" className="theme-btn btn-one"><span>Request A Pickup</span></Link>
+                            <Link href="/patient-signup" className="theme-btn btn-one"><span>Sign Up</span></Link>
                         </div>
                             </ul>
                         

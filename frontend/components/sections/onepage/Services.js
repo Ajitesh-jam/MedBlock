@@ -7,7 +7,7 @@ export default function Service() {
     <div className="auto-container">
       <div className="sec-title mb_50 centred">
         <span className="sub-title">Our Services</span>
-        <h2>We Offer For You Medical & <br />Saving Lives</h2>
+        <h2>Perks we provide </h2>
       </div>
       <div className="row clearfix">
         <div className="col-lg-4 col-md-6 col-sm-12 service-block">

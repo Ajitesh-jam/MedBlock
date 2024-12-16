@@ -447,7 +447,7 @@ export default function Home() {
 
     return (
         <>
-            <Layout headerStyle={2} footerStyle={1} breadcrumbTitle="Patient Signup">
+            <Layout headerStyle={1} footerStyle={1} breadcrumbTitle="Patient Signup">
                 {/* Appointments-section */}
                 <section className="appointment-section sec-pad-2">
                     <div className="outer-container p_relative">
@@ -499,7 +499,7 @@ export default function Home() {
                                                 </div>
                                                 <div className="col-lg-6 col-md-6 col-sm-12 form-group">
                                                     <input
-                                                        type="text"
+                                                        type="date"
                                                         name="DOB"
                                                         placeholder="DOB (DD-MM-YYYY)"
                                                         value={formData.DOB}
@@ -519,7 +519,7 @@ export default function Home() {
                                                     <input
                                                         type="text"
                                                         name="image"
-                                                        placeholder="Upload Your Image and give is Url"
+                                                        placeholder="Upload Profile image URL"
                                                         onChange={handleInputChange}
                                                         
                                                     />

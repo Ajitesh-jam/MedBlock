@@ -151,7 +151,13 @@ h4, .h4 {
 }
 
 h5, .h5 {
-  font-size: 1.25rem;
+  margin-top: 0;
+  margin-bottom: 1rem;
+  font-size: 1.5rem; /* Adjust this value for your preferred font size */
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  display: inline-block;
 }
 
 h6, .h6 {

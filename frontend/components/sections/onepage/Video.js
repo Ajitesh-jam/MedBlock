@@ -22,7 +22,7 @@ export default function Video() {
           </div>
           <h2>Online Consultations With <br />Qualified Doctors</h2>
           <div className="btn-box">
-            <Link href="/" className="theme-btn btn-one"><span>Make an Appointment</span></Link>
+            <Link href="/patient-signup" className="theme-btn btn-one"><span>Make an Appointment</span></Link>
           </div>
         </div>
       </div>
