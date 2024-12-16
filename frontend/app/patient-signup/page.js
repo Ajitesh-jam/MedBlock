@@ -37,14 +37,14 @@
 //     // Function to connect the wallet
 //     const connectWallet = async () => {
 //         try {
-            
+
 //             const accounts = await getAccounts();
 //             //setAccount(accounts[0]);
 //             account = accounts[0];
 //             console.log("Connected account:", account);
 //             setAccountConnected(true);
 
-            
+
 //             } catch (error) {
 //             console.error("Error connecting wallet:", error);
 //         }
@@ -65,7 +65,7 @@
 //         //           _control, 
 //         //           _gender, 
 //         //           _aadhar,
-          
+
 //         //       } = req.body;
 //         //       const publicAddress = req.params.publicAddress;
 //         //      try {
@@ -79,7 +79,7 @@
 //         //         control: _control,
 //         //         gender: _gender,
 //         //         aadhar: _aadhar,
-          
+
 //         //       });
 //         //       res.status(200).send({ message: "Medical Report written with Aadhar ID: " + _aadhar });
 //         //     } catch (error) {
@@ -110,7 +110,7 @@
 //                         backgroundImage: "url(https://ennoblecare.com/wp-content/uploads/2023/09/iStock-1152844782.jpg)",
 //                         width: "287px",
 //                         height: "220px",
-                       
+
 //                         backgroundSize: "cover", // Ensures the image covers the area
 //                         backgroundPosition: "center", // Centers the image within the div
 //                     }}
@@ -307,10 +307,10 @@
 //                 {/* team-section */}
 
 
-               
 
 
-              
+
+
 //                 {/* subscibe */}
 //                 <section className="subscribe-section">
 //                 <div className="auto-container">
@@ -344,8 +344,8 @@
 //                   {/* subscibe end */}
 
 //                   <ModalVideo channel='youtube' autoplay isOpen={isOpen} videoId="nfP5N9Yc72A" onClose={() => setOpen(false)} />
-    
-               
+
+
 //             </Layout>
 //         </>
 //     )
@@ -395,7 +395,7 @@ export default function Home() {
         try {
             const accounts = await getAccounts();
             setAccount(accounts[0]);
-         
+
             console.log("Connected account:", accounts[0]);
         } catch (error) {
             console.error("Error connecting wallet:", error);
@@ -419,7 +419,7 @@ export default function Home() {
 
     const submit = async (e) => {
         e.preventDefault();
-        
+
         if (!account) {
             alert("Please connect your wallet first.");
             return;
@@ -440,7 +440,7 @@ export default function Home() {
         // API call or Zustand action
         axios.post(`http://localhost:8000/createRecord/${account}`, patientData);
 
-        
+
         patients(patientData);
         router.push("/patient");
     };
@@ -489,7 +489,7 @@ export default function Home() {
                                                 </div>
                                                 <div className="col-lg-6 col-md-6 col-sm-12 form-group">
                                                     <input
-                                                        type="email"
+                                                        type="text"
                                                         name="email"
                                                         placeholder="Email"
                                                         value={formData.email}
@@ -499,7 +499,7 @@ export default function Home() {
                                                 </div>
                                                 <div className="col-lg-6 col-md-6 col-sm-12 form-group">
                                                     <input
-                                                        type="text"
+                                                        type="date"
                                                         name="DOB"
                                                         placeholder="DOB (DD-MM-YYYY)"
                                                         value={formData.DOB}
@@ -515,23 +515,34 @@ export default function Home() {
                                                         onChange={handleInputChange}
                                                     />
                                                 </div>
-                                                <div className="col-lg-9 col-md-9 col-sm-12 form-group">
+                                                <div className="col-lg-6 col-md-9 col-sm-12 form-group">
                                                     <input
                                                         type="text"
                                                         name="image"
-                                                        placeholder="Upload Your Image and give is Url"
+                                                        placeholder="Provide valid image url for upload"
                                                         onChange={handleInputChange}
-                                                        
+
                                                     />
                                                 </div>
-                                                <div className="col-lg-3 col-md-3 col-sm-12 form-group">
+                                                <div className="col-lg-6 col-md-3 col-sm-12 form-group">
+                                                    
                                                     <input
-                                                        type="text"
+                                                        type="radio"
                                                         name="gender"
-                                                        placeholder="Gender"
-                                                        value={formData.gender}
+                                                        
+                                                        value="male"
+                                                        checked={formData.gender === "male"}
                                                         onChange={handleInputChange}
-                                                    />
+                                                    /> Male
+                                                    <input
+                                                        type="radio"
+                                                        name="gender"
+                                                        
+                                                        value="female"
+                                                        checked={formData.gender === "female"}
+                                                        onChange={handleInputChange}
+                                                    /> Female
+
                                                 </div>
                                                 <div className="col-lg-12 col-md-12 col-sm-12 form-group">
                                                     <input

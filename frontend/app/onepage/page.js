@@ -2,6 +2,7 @@ import Layout from "@/components/layout/Layout"
 import About from "@/components/sections/onepage/About"
 import Banner from "@/components/sections/onepage/Banner"
 
+
 import Funfacts from "@/components/sections/onepage/Funfacts"
 import News from "@/components/sections/onepage/News"
 
@@ -21,8 +22,8 @@ export default function Home() {
 
     return (
         <>
-            <Layout headerStyle={4} footerStyle={1}>
-                <Banner />
+            <Layout headerStyle={1} footerStyle={1}>
+             <Banner />
                 <Feature />
                 <About />
                 <Service />
