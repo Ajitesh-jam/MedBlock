@@ -61,7 +61,7 @@ export default function News() {
       <div className="auto-container">
         <div className="sec-title mb_50 centred">
           <span className="sub-title">Our Blog</span>
-          <h2>Take a look at our most <br />recent articles</h2>
+          <h2>Take a look at our most <br />Brilliant articles</h2>
         </div>
         <div className="row clearfix">
           <div className="col-lg-4 col-md-6 col-sm-12 news-block">
@@ -71,11 +71,11 @@ export default function News() {
                 <div className="lower-content">
                   <ul className="post-info mb_15 clearfix">
                     <li><Link href="blog-details">Admin</Link></li>
-                    <li>12 Jan 2022</li>
+                    <li>23 Sep 2023</li>
                     <li>03 Comt</li>
                   </ul>
-                  <h3><Link href="blog-details">How do Inherited Retinal of Diseases Happen?</Link></h3>
-                  <p>Tincidunt Maur nemi sit Interdum praesento eget morbi lacinia volutpat pellentesque Tincidunt aurna suspit.</p>
+                  <h3><Link href="blog-details">Your Silence may be deafening to you.</Link></h3>
+                  <p>Bottled up shit has higher chances of bubbling out, rather ironically.</p>
                   <div className="link">
                     <Link href="blog-details"><span>Read More</span></Link>
                   </div>
@@ -90,11 +90,11 @@ export default function News() {
                 <div className="lower-content">
                   <ul className="post-info mb_15 clearfix">
                     <li><Link href="blog-details">Admin</Link></li>
-                    <li>11 Jan 2022</li>
+                    <li>4 Sep 2023</li>
                     <li>0 Comt</li>
                   </ul>
-                  <h3><Link href="blog-details">Prepare to Speak with Your Eye Specialist.</Link></h3>
-                  <p>Tincidunt Maur nemi sit Interdum praesento eget morbi lacinia volutpat pellentesque Tincidunt aurna suspit.</p>
+                  <h3><Link href="blog-details">Family isn’t just a blood-relation.</Link></h3>
+                  <p>It’s a relation for which you can shed blood for.</p>
                   <div className="link">
                     <Link href="blog-details"><span>Read More</span></Link>
                   </div>
