@@ -18,10 +18,26 @@ export default function Footer1() {
                                 <figure className="footer-logo"><Link href="/"><img src="assets/images/footer-logo.png" alt="" /></Link></figure>
                                 <p>Lorem ipsum dolor sit amet constetur adipiscing elit. Etiam eu turpis mostie dictum est a, mattis tellus.</p>
                                 <ul className="social-links clearfix">
-                                    <li><Link href="/"><i className="icon-4"></i></Link></li>
-                                    <li><Link href="/"><i className="icon-5"></i></Link></li>
-                                    <li><Link href="/"><i className="icon-6"></i></Link></li>
-                                    <li><Link href="/"><i className="icon-7"></i></Link></li>
+                                <li>
+                                  <Link href="https://www.example.com" target="_blank" rel="noopener noreferrer">
+                                    <i className="icon-4"></i>
+                                  </Link>
+                                </li>
+                                <li>
+                                  <Link href="https://www.example.com" target="_blank" rel="noopener noreferrer">
+                                    <i className="icon-4"></i>
+                                  </Link>
+                                </li>
+                                <li>
+                                  <Link href="https://www.example.com" target="_blank" rel="noopener noreferrer">
+                                    <i className="icon-4"></i>
+                                  </Link>
+                                </li>
+                                <li>
+                                  <Link href="https://www.example.com" target="_blank" rel="noopener noreferrer">
+                                    <i className="icon-4"></i>
+                                  </Link>
+                                </li>
                                 </ul>
                             </div>
             </div>
